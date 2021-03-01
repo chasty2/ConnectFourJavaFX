@@ -46,7 +46,7 @@ public class JavaFXTemplate extends Application {
 		int y = 0;
 		for (x = 0; x < 7; x++) {
 			for (y = 0; y < 6; y++) {
-				MyButton b = new MyButton(x, y);
+				XYButton b = new XYButton(x, y);
 				b.setMinSize(40, 40);
 				b.setStyle("-fx-background-color: lightgrey;");
 				board.add(b, x, y);

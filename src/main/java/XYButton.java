@@ -22,11 +22,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class MyButton extends Button{
+public class XYButton extends Button{
 	private int x;
 	private int y;
 	
-	public MyButton(int newX, int newY) {
+	public XYButton(int newX, int newY) {
 		x = newX;
 		y = newY;
 	}
