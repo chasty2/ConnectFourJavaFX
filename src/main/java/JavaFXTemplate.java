@@ -33,14 +33,19 @@ public class JavaFXTemplate extends Application {
 		primaryStage.show();
 	}
 	
-	
+	public Label test(int x, int y) {
+		Label l1 = new Label();
+		l1.setText("You have pressed on: " + x + " " + y);
+		return l1;
+	}
 	public GridPane gameBoard() {
 		GridPane board = new GridPane();
+		VBox log = eventLog();
 		myHandler = new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				XYButton button = (XYButton) event.getSource();
-				System.out.println("TEST");
+				test(GridPane.getColumnIndex(button), GridPane.getRowIndex(button));
 			}
 			
 		};
@@ -58,10 +63,11 @@ public class JavaFXTemplate extends Application {
 	}
 	
 	public VBox eventLog() {
-		Text text = new Text();
-		text.setText("Event Log");
-		VBox eventLogList = new VBox(text);
-		//System.out.println("Event Log");
+		Label lbl = new Label("Event Log");
+		lbl.setPrefHeight(60);
+		lbl.setStyle("-fx-border-style: dotted; fx-borde-width: 0 0 1 0; --fx-font-weight:bold;");
+		VBox eventLogList = new VBox(lbl);
+		
 		
 		return eventLogList;
 	}
@@ -79,8 +85,7 @@ public class JavaFXTemplate extends Application {
 	public Scene createGameScene() {
 		BorderPane board = new BorderPane();
 		GridPane center = gameBoard();
-		center.setPrefWidth(500);
-		center.setPrefHeight(500);
+		board.setMaxWidth(500);
 		board.setCenter(center);
 		board.setRight(eventLog());
 		board.setBottom(menu());
