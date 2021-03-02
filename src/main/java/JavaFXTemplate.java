@@ -1,59 +1,90 @@
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
 public class JavaFXTemplate extends Application {
 
+	EventHandler<ActionEvent> myHandler;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		launch(args);
 	}
+	
 
+	
 	//feel free to remove the starter code from this method
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
 		primaryStage.setTitle("Welcome to JavaFX");
-		
 		Scene g = createGameScene();
-		
-				
-		
 		primaryStage.setScene(g);
 		primaryStage.show();
 	}
 	
-	public Scene createGameScene()
-	{
-		// Mybu
-		//MyButton arr[][] = ;
-		// Buttons used by menu Hbox
+	
+	public GridPane gameBoard() {
+		GridPane board = new GridPane();
+		myHandler = new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				XYButton button = (XYButton) event.getSource();
+				System.out.println("TEST");
+			}
+			
+		};
+		for(int x = 0; x<7; x++) {
+			for(int y = 0; y<6; y++) {
+				XYButton b = new XYButton(x, y);
+				b.setMinSize(50, 50);
+				b.setStyle("-fx-background-color: blue;");
+				b.setOnAction(myHandler);
+				board.add(b, x, y);
+			}
+		}
+		board.setPrefWidth(800);
+		return board;
+	}
+	
+	public VBox eventLog() {
+		Text text = new Text();
+		text.setText("Event Log");
+		VBox eventLogList = new VBox(text);
+		//System.out.println("Event Log");
+		
+		return eventLogList;
+	}
+	
+	public HBox menu() {
 		Button revBut = new Button("Reverse");
 		Button themeBut = new Button("Themes");
 		Button newGameBut = new Button ("Start New Game");
 		Button exitBut = new Button("Exit");
 		// menu Hbox
-		HBox menu = new HBox(10,revBut,themeBut,newGameBut,exitBut);
-		
-		// Grid Pane for the board
-		GridPane board = new GridPane();
-		// Add grid buttons
-		int x = 0; 
-		int y = 0;
-		for (x = 0; x < 7; x++) {
-			for (y = 0; y < 6; y++) {
-				XYButton b = new XYButton(x, y);
-				b.setMinSize(40, 40);
-				b.setStyle("-fx-background-color: lightgrey;");
-				board.add(b, x, y);
-			}
-		}
-		// Populate and return gameScene 
-		Scene gameScene = new Scene(board, 700,700);
+		HBox menuList = new HBox(20,revBut,themeBut,newGameBut,exitBut);
+		return menuList;
+	}
+	
+	public Scene createGameScene() {
+		BorderPane board = new BorderPane();
+		GridPane center = gameBoard();
+		center.setPrefWidth(500);
+		center.setPrefHeight(500);
+		board.setCenter(center);
+		board.setRight(eventLog());
+		board.setBottom(menu());
+		Scene gameScene = new Scene(board, 500,500);
 		return gameScene;
 	}
 	

@@ -25,9 +25,14 @@ import javafx.util.Duration;
 public class XYButton extends Button{
 	private int x;
 	private int y;
+	public boolean valid;
+	public int player;
 	
 	public XYButton(int newX, int newY) {
 		x = newX;
 		y = newY;
+		this.valid = false;
+		this.player = 0;
+		
 	}
 }
