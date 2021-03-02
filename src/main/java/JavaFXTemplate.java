@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
@@ -27,7 +28,7 @@ public class JavaFXTemplate extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
-		primaryStage.setTitle("Welcome to JavaFX");
+		primaryStage.setTitle("Connect Four by Cody & Krish");
 		Scene g = createGameScene();
 		primaryStage.setScene(g);
 		primaryStage.show();
@@ -52,23 +53,30 @@ public class JavaFXTemplate extends Application {
 		for(int x = 0; x<7; x++) {
 			for(int y = 0; y<6; y++) {
 				XYButton b = new XYButton(x, y);
-				b.setMinSize(50, 50);
-				b.setStyle("-fx-background-color: blue;");
+				b.setPrefSize(50, 50);
+				b.setStyle("-fx-background-color: grey;");
 				b.setOnAction(myHandler);
 				board.add(b, x, y);
 			}
 		}
-		board.setPrefWidth(800);
+		board.setStyle("-fx-padding: 10;" +
+                "-fx-border-style: solid inside;" +
+                "-fx-border-width: 5;" +
+                "-fx-border-radius: 2;" +
+                "-fx-border-color: yellow;");
 		return board;
 	}
 	
 	public VBox eventLog() {
-		Label lbl = new Label("Event Log");
-		lbl.setPrefHeight(60);
-		lbl.setStyle("-fx-border-style: dotted; fx-borde-width: 0 0 1 0; --fx-font-weight:bold;");
-		VBox eventLogList = new VBox(lbl);
-		
-		
+		Text h1 = new Text("Event Log");
+		h1.setTextAlignment(TextAlignment.CENTER);
+		VBox eventLogList = new VBox(h1);
+		eventLogList.setStyle("-fx-padding: 10;" +
+                "-fx-border-style: solid inside;" +
+                "-fx-border-width: 5;" +
+                "-fx-border-radius: 2;" +
+                "-fx-border-color: green;");
+		eventLogList.setAlignment(Pos.TOP_CENTER);
 		return eventLogList;
 	}
 	
@@ -78,18 +86,30 @@ public class JavaFXTemplate extends Application {
 		Button newGameBut = new Button ("Start New Game");
 		Button exitBut = new Button("Exit");
 		// menu Hbox
-		HBox menuList = new HBox(20,revBut,themeBut,newGameBut,exitBut);
+		HBox menuList = new HBox(100,revBut,themeBut,newGameBut,exitBut);
+		menuList.setStyle("-fx-padding: 10;" +
+                "-fx-border-style: solid inside;" +
+                "-fx-border-width: 5;" +
+                "-fx-border-radius: 2;" +
+                "-fx-border-color: blue;");
 		return menuList;
 	}
 	
 	public Scene createGameScene() {
 		BorderPane board = new BorderPane();
 		GridPane center = gameBoard();
-		board.setMaxWidth(500);
+		VBox eventLog = eventLog();
+		board.setPrefHeight(200);
+		eventLog.setPrefWidth(200);
 		board.setCenter(center);
-		board.setRight(eventLog());
+		board.setRight(eventLog);
 		board.setBottom(menu());
-		Scene gameScene = new Scene(board, 500,500);
+		Scene gameScene = new Scene(board, 650,400);
+		board.setStyle("-fx-padding: 10;" +
+                "-fx-border-style: solid inside;" +
+                "-fx-border-width: 5;" +
+                "-fx-border-radius: 2;" +
+                "-fx-border-color: red;");
 		return gameScene;
 	}
 	
