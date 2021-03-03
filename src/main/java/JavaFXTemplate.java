@@ -29,10 +29,15 @@ public class JavaFXTemplate extends Application {
 		primaryStage.setTitle("Connect Four by Cody & Krish");
 		GameScene g = new GameScene();
 		Scene s = g.createGameScene();
-		primaryStage.setScene(s);
+		IntroScene intro = new IntroScene();
+		Scene s2 = intro.createIntroScene();
+		primaryStage.setScene(s2);
 		primaryStage.show();
 	}
-	
+	public void set() {
+		GameScene g = new GameScene();
+		Scene s = g.createGameScene();
+	}
 	public Label test(int x, int y) {
 		Label l1 = new Label();
 		l1.setText("You have pressed on: " + x + " " + y);
