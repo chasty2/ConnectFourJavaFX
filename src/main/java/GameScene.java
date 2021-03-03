@@ -51,7 +51,7 @@ public class GameScene
 				b.setPrefSize(50, 50);
 				b.setStyle("-fx-background-color: grey;");
 				b.setOnAction(b.handler);
-				// Link prev to b
+				// Link b to XYButton 'above' it, or null
 				b.setNext(prev);
 				// Add button to board
 				board.add(b, x, y);
