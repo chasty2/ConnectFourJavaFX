@@ -88,7 +88,7 @@ public class XYButton extends Button
 	
 	// TODO: getters/setters
 	
-	// Sets nex
+	// Sets next Button
 	public void setNext(XYButton next)
 	{
 		this.nextButton = next;

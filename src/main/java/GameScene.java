@@ -34,7 +34,14 @@ public class GameScene
 		// Declare XYButton to create linked list of XYButton columns
 		XYButton prev = null;
 		
-		// Populate gameBoard with XYButtons
+		/*
+		 *  Populate gameBoard with XYButtons:
+		 *  
+		 *  Note that the board is populated one column at a time, from 
+		 *  top to bottom. Each column consists of a linked list of 
+		 *  XYButtons that iterate from bottom to top
+		 *  
+		 */
 		for(int x = 0; x<7; x++) 
 		{
 			for(int y = 0; y<6; y++) 
