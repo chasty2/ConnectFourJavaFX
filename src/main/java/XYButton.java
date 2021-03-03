@@ -30,11 +30,11 @@ public class XYButton extends Button
 	// Event Handler, will move to GameScene.java
 	public EventHandler<ActionEvent> handler;
 	// Boolean for valid move
-	public boolean valid;
+	private boolean valid;
 	// Integer to denote who pushed this button
-	public Integer player;
+	private Integer player;
 	// Pointer to XYButton above this one
-	public XYButton nextButton;
+	private XYButton nextButton;
 	
 	// Constructor
 	public XYButton(Integer newX, Integer newY) 
@@ -79,26 +79,65 @@ public class XYButton extends Button
 				{
 					System.out.println("Invalid Move");
 				}
-				
-				// Set button above pressed button to valid
 			
 			}
 		};
 	}
 	
-	// TODO: getters/setters
-	
-	// Sets next Button
-	public void setNext(XYButton next)
+	/*
+	 *  Getters/Setters
+	 */
+	public Integer getX()
 	{
-		this.nextButton = next;
+		return this.x;
 	}
 	
-	// Sets valid
+	public Integer getY()
+	{
+		return this.y;
+	}
+	
+	public boolean getValid()
+	{
+		return this.valid;
+	}
+	
+	public Integer getPlayer()
+	{
+		return this.player;
+	}
+	
+	public XYButton getNext()
+	{
+		return this.nextButton;
+	}
+	
+	public void setX(Integer newX)
+	{
+		this.x = newX;
+	}
+	
+	public void setY(Integer newY)
+	{
+		this.y = newY;
+	}
+	
+	// Marks this XYButton as a valid move
 	public void setValid()
 	{
 		this.valid = true;
 	}
 	
+	// Sets a button as having been pushed by player 1 or 2
+	public void setPlayer(Integer currentPlayer)
+	{
+		this.player = currentPlayer;
+	}
 	
+	// Sets nextButton to the XYButton above this one
+	public void setNext(XYButton next)
+	{
+		this.nextButton = next;
+	}
+
 }
