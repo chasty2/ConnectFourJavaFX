@@ -72,7 +72,6 @@ public class XYButton extends Button
 					{
 						nextButton.setValid();
 					}
-					nextButton.setValid();
 					System.out.println("Valid Move");
 				}
 				else
