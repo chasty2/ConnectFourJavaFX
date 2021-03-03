@@ -23,31 +23,54 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class XYButton extends Button{
-	private int x;
-	private int y;
+	private Integer x;
+	private Integer y;
 	public EventHandler<ActionEvent> handler;
 	public boolean valid;
-	public int player;
+	public Integer player;
 	
 	// Constructor
-	public XYButton(int newX, int newY) {
+	public XYButton(Integer newX, Integer newY) {
+		// Set x,y coordinates
 		x = newX;
 		y = newY;
-		this.valid = false;
-		this.player = 1;
+		// Set player as 0. Reset as 1 or 2 based on who presses this button
+		player = 0;
+		// Set as valid move if button is on the bottom of the GridPane
+		if (this.y == 5)
+		{
+			this.valid = true;
+		}
+		else
+		{
+			this.valid = false;
+		}
 		
 		// Init Event Handler
 		handler = new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+				// Get info on button pressed
 				XYButton button = (XYButton) event.getSource();
 				System.out.println("Player 1 has pressed " + GridPane.getColumnIndex(button) +  " " + GridPane.getRowIndex(button));
-				//test(GridPane.getColumnIndex(button), GridPane.getRowIndex(button));
+				// Press if valid move
+				if (button.valid == true)
+				{
+					button.setStyle("-fx-background-color: blue;");
+					System.out.println("Valid Move");
+				}
+				else
+				{
+					System.out.println("Invalid Move");
+				}
+				
+				// TODO: set button above pressed button to valid
 			}
 		};
 	}
 	
 	// TODO: getters/setters
+	
 	
 	
 }
