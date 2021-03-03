@@ -29,9 +29,7 @@ public class JavaFXTemplate extends Application {
 		primaryStage.setTitle("Connect Four by Cody & Krish");
 		GameScene g = new GameScene();
 		Scene s = g.createGameScene();
-		IntroScene intro = new IntroScene();
-		Scene s2 = intro.createIntroScene();
-		primaryStage.setScene(s2);
+		primaryStage.setScene(s);
 		primaryStage.show();
 	}
 	public void set() {
