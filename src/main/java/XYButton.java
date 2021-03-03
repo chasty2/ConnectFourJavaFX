@@ -25,14 +25,29 @@ import javafx.util.Duration;
 public class XYButton extends Button{
 	private int x;
 	private int y;
+	public EventHandler<ActionEvent> handler;
 	public boolean valid;
 	public int player;
 	
+	// Constructor
 	public XYButton(int newX, int newY) {
 		x = newX;
 		y = newY;
 		this.valid = false;
-		this.player = 0;
+		this.player = 1;
 		
+		// Init Event Handler
+		handler = new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				XYButton button = (XYButton) event.getSource();
+				System.out.println("Player 1 has pressed " + GridPane.getColumnIndex(button) +  " " + GridPane.getRowIndex(button));
+				//test(GridPane.getColumnIndex(button), GridPane.getRowIndex(button));
+			}
+		};
 	}
+	
+	// TODO: getters/setters
+	
+	
 }

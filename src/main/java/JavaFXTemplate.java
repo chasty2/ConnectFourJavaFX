@@ -42,20 +42,13 @@ public class JavaFXTemplate extends Application {
 	public GridPane gameBoard() {
 		GridPane board = new GridPane();
 		VBox log = eventLog();
-		myHandler = new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				XYButton button = (XYButton) event.getSource();
-				test(GridPane.getColumnIndex(button), GridPane.getRowIndex(button));
-			}
-			
-		};
+		
 		for(int x = 0; x<7; x++) {
 			for(int y = 0; y<6; y++) {
 				XYButton b = new XYButton(x, y);
 				b.setPrefSize(50, 50);
 				b.setStyle("-fx-background-color: grey;");
-				b.setOnAction(myHandler);
+				b.setOnAction(b.handler);
 				board.add(b, x, y);
 			}
 		}
