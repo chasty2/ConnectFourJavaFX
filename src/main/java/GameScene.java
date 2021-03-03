@@ -31,15 +31,25 @@ public class GameScene
 	public GridPane gameBoard() {
 		GridPane board = new GridPane();
 		VBox log = eventLog();
+		// Declare XYButton to create linked list of XYButton columns
+		XYButton prev = null;
 		
 		// Populate gameBoard with XYButtons
-		for(int x = 0; x<7; x++) {
-			for(int y = 0; y<6; y++) {
+		for(int x = 0; x<7; x++) 
+		{
+			for(int y = 0; y<6; y++) 
+			{
+				// Init XYButton
 				XYButton b = new XYButton(x, y);
 				b.setPrefSize(50, 50);
 				b.setStyle("-fx-background-color: grey;");
 				b.setOnAction(b.handler);
+				// Link prev to b
+				b.setNext(prev);
+				// Add button to board
 				board.add(b, x, y);
+				// Set prev to b for LL construction
+				prev = b;
 			}
 		}
 		board.setStyle("-fx-padding: 10;" +

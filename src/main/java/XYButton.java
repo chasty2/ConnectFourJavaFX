@@ -22,15 +22,25 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class XYButton extends Button{
+public class XYButton extends Button
+{
+	// X,Y coordinates of button in GridPane
 	private Integer x;
 	private Integer y;
+	// Event Handler, will move to GameScene.java
 	public EventHandler<ActionEvent> handler;
+	// Boolean for valid move
 	public boolean valid;
+	// Integer to denote who pushed this button
 	public Integer player;
+	// Pointer to XYButton above this one
+	public XYButton nextButton;
 	
 	// Constructor
-	public XYButton(Integer newX, Integer newY) {
+	public XYButton(Integer newX, Integer newY) 
+	{
+		// Set next to null. Will be set on GridPane Init
+		nextButton = null;
 		// Set x,y coordinates
 		x = newX;
 		y = newY;
@@ -57,6 +67,12 @@ public class XYButton extends Button{
 				if (button.valid == true)
 				{
 					button.setStyle("-fx-background-color: blue;");
+					// Set next button as a valid move
+					if (nextButton != null)
+					{
+						nextButton.setValid();
+					}
+					nextButton.setValid();
 					System.out.println("Valid Move");
 				}
 				else
@@ -64,13 +80,25 @@ public class XYButton extends Button{
 					System.out.println("Invalid Move");
 				}
 				
-				// TODO: set button above pressed button to valid
+				// Set button above pressed button to valid
+			
 			}
 		};
 	}
 	
 	// TODO: getters/setters
 	
+	// Sets nex
+	public void setNext(XYButton next)
+	{
+		this.nextButton = next;
+	}
+	
+	// Sets valid
+	public void setValid()
+	{
+		this.valid = true;
+	}
 	
 	
 }
