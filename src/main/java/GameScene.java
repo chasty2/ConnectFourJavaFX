@@ -27,12 +27,38 @@ import javafx.util.Duration;
 
 
 public class GameScene 
-{
+{	
 	public GridPane gameBoard() {
+
+		GameLogic game = new GameLogic();
 		GridPane board = new GridPane();
-		VBox log = eventLog();
-		// Declare XYButton to create linked list of XYButton columns
-		XYButton prev = null;
+		
+		//Declare event handler for XYButtons in gameBoard
+		EventHandler<ActionEvent> handler = new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				// Get info on button pressed
+				XYButton button = (XYButton) event.getSource();
+				System.out.println("Player 1 has pressed " + GridPane.getColumnIndex(button) +  " " + GridPane.getRowIndex(button));
+				// Press if valid move
+				if (button.getValid() == true)
+				{
+					// Set next button as a valid move
+					if (button.getNext() != null)
+					{
+						button.getNext().setValid();
+					}
+					System.out.println("Valid Move");
+					button.setColor(game.getCurrentPlayer());
+					game.changeTurn();
+					System.out.println("Player " + game.getCurrentPlayer() + " Is Up");
+				}
+				else
+				{
+					System.out.println("Invalid Move");
+				}
+			}
+		};
 		
 		/*
 		 *  Populate gameBoard with XYButtons:
@@ -42,6 +68,7 @@ public class GameScene
 		 *  XYButtons that iterate from bottom to top
 		 *  
 		 */
+		XYButton prev = null;
 		for(int x = 0; x<7; x++) 
 		{
 			for(int y = 0; y<6; y++) 
@@ -50,7 +77,7 @@ public class GameScene
 				XYButton b = new XYButton(x, y);
 				b.setPrefSize(50, 50);
 				b.setStyle("-fx-background-color: grey;");
-				b.setOnAction(b.handler);
+				b.setOnAction(handler);			
 				// Link b to XYButton 'above' it, or null
 				b.setNext(prev);
 				// Add button to board

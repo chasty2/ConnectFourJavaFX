@@ -36,7 +36,9 @@ public class XYButton extends Button
 	// Pointer to XYButton above this one
 	private XYButton nextButton;
 	
-	// Constructor
+	/*
+	 *  Constructor
+	 */
 	public XYButton(Integer newX, Integer newY) 
 	{
 		// Set next to null. Will be set on GridPane Init
@@ -55,36 +57,10 @@ public class XYButton extends Button
 		{
 			this.valid = false;
 		}
-		
-		// Init Event Handler
-		handler = new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				// Get info on button pressed
-				XYButton button = (XYButton) event.getSource();
-				System.out.println("Player 1 has pressed " + GridPane.getColumnIndex(button) +  " " + GridPane.getRowIndex(button));
-				// Press if valid move
-				if (button.valid == true)
-				{
-					button.setStyle("-fx-background-color: blue;");
-					// Set next button as a valid move
-					if (nextButton != null)
-					{
-						nextButton.setValid();
-					}
-					System.out.println("Valid Move");
-				}
-				else
-				{
-					System.out.println("Invalid Move");
-				}
-			
-			}
-		};
 	}
 	
 	/*
-	 *  Getters/Setters
+	 *  Getters
 	 */
 	public Integer getX()
 	{
@@ -111,6 +87,10 @@ public class XYButton extends Button
 		return this.nextButton;
 	}
 	
+	
+	/*
+	 * Setters
+	 */
 	public void setX(Integer newX)
 	{
 		this.x = newX;
@@ -137,6 +117,19 @@ public class XYButton extends Button
 	public void setNext(XYButton next)
 	{
 		this.nextButton = next;
+	}
+	
+	// Sets color of button based on player that pressed it
+	public void setColor(Integer currentPlayer)
+	{
+		if (currentPlayer == 1)
+		{
+			this.setStyle("-fx-background-color: red;");
+		}
+		else
+		{
+			this.setStyle("-fx-background-color: blue;");
+		}
 	}
 
 }

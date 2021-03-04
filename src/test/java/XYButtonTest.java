@@ -110,6 +110,9 @@ class XYButtonTest
 	
 	/*
 	 * Test XYButton Setters
+	 * 
+	 * NOTE: SetColor is not tested here, as it is outside of the scope
+	 *       of this assignment
 	 */
 	@Test
 	void testSetX()
