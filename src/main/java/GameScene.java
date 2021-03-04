@@ -50,6 +50,7 @@ public class GameScene
 					}
 					System.out.println("Valid Move");
 					button.setColor(game.getCurrentPlayer());
+					//game.checkWin();
 					game.changeTurn();
 					System.out.println("Player " + game.getCurrentPlayer() + " Is Up");
 				}
