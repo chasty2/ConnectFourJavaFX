@@ -24,6 +24,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.scene.Node;
 
 
 /*
@@ -61,6 +62,21 @@ public class GameLogic
 	public Integer getCurrentPlayer()
 	{
 		return currentPlayer;
+	}
+	
+	//Traverse gameBoard (Gridpane of XYButtons), returns button at (x,y)
+	public XYButton getMove(GridPane board, Integer x, Integer y)
+	{
+		XYButton button = null;
+		for (Node node : board.getChildren())
+		{
+			if(GridPane.getRowIndex(node) == y &&
+					GridPane.getColumnIndex(node) == x)
+			{
+				button = (XYButton) node;
+			}
+		}
+		return button;
 	}
 	
 }
