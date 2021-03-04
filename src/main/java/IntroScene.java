@@ -34,7 +34,6 @@ public class IntroScene {
 	
 	public HBox titleBox() {
 		Text h1 = new Text("Connect Four");
-		Text h2 = new Text("Two Player Game");
 		h1.setTextAlignment(TextAlignment.CENTER);
 		HBox title = new HBox(h1);
 		title.setAlignment(Pos.TOP_CENTER);
@@ -46,15 +45,25 @@ public class IntroScene {
 		h1.setStyle("-fx-font: 100px Tahoma;" +
 					"-fx-fill: linear-gradient(from 0% 60% to 150% 200%, repeat, yellow 10%, red 50%);" +
 					"-fx-stroke: black;");
-		// h2.setFont(Font.font ("Verdana", 40));
-		//h1.setFill(Paint.valueOf("red"));
 		return title;
+	}
+	
+	public HBox centerBox() {
+		Text h2 = new Text("CS 342 Project by Cody & Krish");
+		h2.setFont(Font.font ("Verdana", 40));
+		HBox centBox = new HBox(h2);
+		h2.setStyle("-fx-font: 45px Tahoma;" +
+				"-fx-fill: linear-gradient(from 0% 60% to 150% 200%, repeat, blue 10%, yellow 50%);" +
+				"-fx-stroke: black;");
+		centBox.setAlignment(Pos.CENTER);
+		return centBox;
 	}
 	
 	public HBox menu() {
 		Button themes = new Button("Themes");
 		Button howToPlay = new Button("How to Play");
 		Button startGame = new Button("Stat Game");
+		
 		Button exitGame = new Button("Exit");
 		HBox menu = new HBox(100, themes, howToPlay, startGame, exitGame);
 		menu.setStyle("-fx-padding: 10;" +
@@ -68,7 +77,8 @@ public class IntroScene {
 	
 	public Scene createIntroScene() {
 		BorderPane board = new BorderPane();
-		board.setCenter(titleBox());
+		board.setTop(titleBox());
+		board.setCenter(centerBox());
 		board.setBottom(menu());
 		Scene introScene = new Scene(board, 650,400);
 		return introScene;

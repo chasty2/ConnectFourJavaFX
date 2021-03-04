@@ -1,6 +1,7 @@
 GameLogic.class
-IntroScene.class
 GameScene$1.class
-JavaFXTemplate.class
+RulesScene.class
 XYButton.class
+IntroScene.class
+JavaFXTemplate.class
 GameScene.class
