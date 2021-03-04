@@ -28,39 +28,40 @@ import javafx.util.Duration;
 
 public class GameScene 
 {	
+	// Manage game state
+	GameLogic game = new GameLogic();
+	
+	//XYButton event handler
+	EventHandler<ActionEvent> handler = new EventHandler<ActionEvent>() {
+		@Override
+		public void handle(ActionEvent event) {
+			// Get info on button pressed
+			XYButton button = (XYButton) event.getSource();
+			System.out.println("Player 1 has pressed " + GridPane.getColumnIndex(button) +  " " + GridPane.getRowIndex(button));
+			// Press if valid move
+			if (button.getValid() == true)
+			{
+				// Set next button as a valid move
+				if (button.getNext() != null)
+				{
+					button.getNext().setValid();
+				}
+				System.out.println("Valid Move");
+				button.setColor(game.getCurrentPlayer());
+				//game.checkWin();
+				game.changeTurn();
+				System.out.println("Player " + game.getCurrentPlayer() + " Is Up");
+			}
+			else
+			{
+				System.out.println("Invalid Move");
+			}
+		}
+	};
+	
 	public GridPane gameBoard() {
 
-		GameLogic game = new GameLogic();
 		GridPane board = new GridPane();
-		
-		//Declare event handler for XYButtons in gameBoard
-		EventHandler<ActionEvent> handler = new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				// Get info on button pressed
-				XYButton button = (XYButton) event.getSource();
-				System.out.println("Player 1 has pressed " + GridPane.getColumnIndex(button) +  " " + GridPane.getRowIndex(button));
-				// Press if valid move
-				if (button.getValid() == true)
-				{
-					// Set next button as a valid move
-					if (button.getNext() != null)
-					{
-						button.getNext().setValid();
-					}
-					System.out.println("Valid Move");
-					button.setColor(game.getCurrentPlayer());
-					//game.checkWin();
-					game.changeTurn();
-					System.out.println("Player " + game.getCurrentPlayer() + " Is Up");
-				}
-				else
-				{
-					System.out.println("Invalid Move");
-				}
-			}
-		};
-		
 		/*
 		 *  Populate gameBoard with XYButtons:
 		 *  
