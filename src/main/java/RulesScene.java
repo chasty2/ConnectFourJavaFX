@@ -30,6 +30,8 @@ import javafx.util.Duration;
 
 public class RulesScene {
 	
+	Button back;
+	Button startGame;
 	public HBox RulesBox() {
 		Text h1 = new Text("Rules");
 		HBox title = new HBox(h1);
@@ -47,8 +49,8 @@ public class RulesScene {
 	
 	
 	public HBox menu() {
-		Button back = new Button("Back");
-		Button startGame = new Button("Start Game");
+		back = new Button("Back");
+		startGame = new Button("Start Game");
 		Text logo = new Text("Connect Four By Cody and Krish");
 		logo.setStyle("-fx-font: 15px Tahoma;" +
 				"-fx-fill: linear-gradient(from 0% 90% to 150% 200%, blue, red 40%, green 15%);");

@@ -32,7 +32,10 @@ import javafx.util.Duration;
 
 public class IntroScene {
 	
-	JavaFXTemplate j = new JavaFXTemplate();
+	Button themes;
+	Button howToPlay;
+	Button startGame;
+	Button exitGame;
 	public HBox titleBox() {
 		Text h1 = new Text("Connect Four");
 		h1.setTextAlignment(TextAlignment.CENTER);
@@ -61,11 +64,12 @@ public class IntroScene {
 	}
 	
 	public HBox menu() {
-		Button themes = new Button("Themes");
-		Button howToPlay = new Button("How to Play");
-		Button startGame = new Button("Stat Game");
-		Button exitGame = new Button("Exit");
-		// startGame.setOnAction(e->JavaFXTemplate.setTracker(1));
+		themes = new Button("Themes");
+		howToPlay = new Button("How to Play");
+		startGame = new Button("Stat Game");
+		exitGame = new Button("Exit");
+		// startGame.setOnAction(e->j.changeScene(createIntroScene()));
+		// startGame.setOnAction(e->startGame.setStyle("-fx-background-color: green;"));
 		HBox menu = new HBox(100, themes, howToPlay, startGame, exitGame);
 		menu.setStyle("-fx-padding: 10;" +
                 "-fx-border-style: solid inside;" +
