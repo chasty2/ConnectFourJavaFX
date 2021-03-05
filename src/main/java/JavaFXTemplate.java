@@ -15,7 +15,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
 public class JavaFXTemplate extends Application {
-
+	// private static Stage mainStage;
 	EventHandler<ActionEvent> myHandler;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -29,18 +29,14 @@ public class JavaFXTemplate extends Application {
 		primaryStage.setTitle("Connect Four by Cody & Krish");
 		GameScene g = new GameScene();
 		Scene s = g.createGameScene();
+		/*
+		IntroScene g2 = new IntroScene();
+		Scene s2 = g2.createIntroScene();
+		RulesScene g3 = new RulesScene();
+		Scene s3 = g3.createRulesScene();
+		*/
 		primaryStage.setScene(s);
 		primaryStage.show();
 	}
-	public void set() {
-		GameScene g = new GameScene();
-		Scene s = g.createGameScene();
-	}
-	public Label test(int x, int y) {
-		Label l1 = new Label();
-		l1.setText("You have pressed on: " + x + " " + y);
-		return l1;
-	}
-	
 	// End JavaFXTemplate
 }	

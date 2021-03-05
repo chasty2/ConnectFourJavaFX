@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Stack;
 import java.util.function.Function;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
@@ -30,14 +31,17 @@ public class GameScene
 {	
 	// Manage game state
 	GameLogic game = new GameLogic();
-	
+
+	ListView <String> list = new ListView<>();
+	ObservableList<String> inList = FXCollections.observableArrayList();
 	//XYButton event handler
 	EventHandler<ActionEvent> handler = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent event) {
 			// Get info on button pressed
 			XYButton button = (XYButton) event.getSource();
-			System.out.println("Player 1 has pressed " + GridPane.getColumnIndex(button) +  " " + GridPane.getRowIndex(button));
+			String first = "Player " + game.getCurrentPlayer() +  " has pressed " + GridPane.getColumnIndex(button) +  " " + GridPane.getRowIndex(button);
+			System.out.println("Player " + game.getCurrentPlayer() +  " has pressed " + GridPane.getColumnIndex(button) +  " " + GridPane.getRowIndex(button));
 			// Press if valid move
 			if (button.getValid() == true)
 			{
@@ -47,13 +51,21 @@ public class GameScene
 					button.getNext().setValid();
 				}
 				System.out.println("Valid Move");
+				inList.add(first);
+				
 				button.setColor(game.getCurrentPlayer());
 				//game.checkWin();
 				game.changeTurn();
+				String two = "Player " + game.getCurrentPlayer() + " Is Up";
 				System.out.println("Player " + game.getCurrentPlayer() + " Is Up");
+				inList.add(two);
+				list.setItems(inList);
 			}
 			else
 			{
+				String errorMessage = "Sorry, it is a invalid move";
+				inList.add(errorMessage);
+				list.setItems(inList);
 				System.out.println("Invalid Move");
 			}
 		}
@@ -99,7 +111,7 @@ public class GameScene
 	public VBox eventLog() {
 		Text h1 = new Text("Event Log");
 		h1.setTextAlignment(TextAlignment.CENTER);
-		VBox eventLogList = new VBox(h1);
+		VBox eventLogList = new VBox(h1, list);
 		eventLogList.setStyle("-fx-padding: 10;" +
                 "-fx-border-style: solid inside;" +
                 "-fx-border-width: 5;" +

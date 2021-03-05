@@ -63,8 +63,8 @@ public class IntroScene {
 		Button themes = new Button("Themes");
 		Button howToPlay = new Button("How to Play");
 		Button startGame = new Button("Stat Game");
-		
 		Button exitGame = new Button("Exit");
+		// startGame.setOnAction();
 		HBox menu = new HBox(100, themes, howToPlay, startGame, exitGame);
 		menu.setStyle("-fx-padding: 10;" +
                 "-fx-border-style: solid inside;" +
