@@ -31,6 +31,10 @@ public class GameScene
 {	
 	// Manage game state
 	GameLogic game = new GameLogic();
+	Button revBut;
+	Button themeBut;
+	Button newGameBut;
+	Button exitBut;
 
 	ListView <String> list = new ListView<>();
 	ObservableList<String> inList = FXCollections.observableArrayList("Player 1 is up");
@@ -123,10 +127,10 @@ public class GameScene
 	}
 	
 	public HBox menu() {
-		Button revBut = new Button("Reverse");
-		Button themeBut = new Button("Themes");
-		Button newGameBut = new Button ("Start New Game");
-		Button exitBut = new Button("Exit");
+		revBut = new Button("Reverse");
+		themeBut = new Button("Themes");
+		newGameBut = new Button ("Start New Game");
+		exitBut = new Button("Exit");
 		// menu Hbox
 		HBox menuList = new HBox(100,revBut,themeBut,newGameBut,exitBut);
 		menuList.setStyle("-fx-padding: 10;" +
