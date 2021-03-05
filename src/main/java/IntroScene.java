@@ -65,7 +65,6 @@ public class IntroScene {
 		Button howToPlay = new Button("How to Play");
 		Button startGame = new Button("Stat Game");
 		Button exitGame = new Button("Exit");
-		startGame.setOnAction(e->j.setScene(createIntroScene()));
 		// startGame.setOnAction(e->JavaFXTemplate.setTracker(1));
 		HBox menu = new HBox(100, themes, howToPlay, startGame, exitGame);
 		menu.setStyle("-fx-padding: 10;" +
