@@ -114,6 +114,7 @@ public class GameScene
 	public VBox eventLog() {
 		Text h1 = new Text("Event Log");
 		h1.setTextAlignment(TextAlignment.CENTER);
+		list.setItems(inList);
 		VBox eventLogList = new VBox(h1, list);
 		eventLogList.setStyle("-fx-padding: 10;" +
                 "-fx-border-style: solid inside;" +
@@ -149,7 +150,6 @@ public class GameScene
 		board.setRight(eventLog);
 		board.setBottom(menu());
 		Scene gameScene = new Scene(board, 650,400);
-		list.setItems(inList);
 		board.setStyle("-fx-padding: 10;" +
                 "-fx-border-style: solid inside;" +
                 "-fx-border-width: 5;" +
