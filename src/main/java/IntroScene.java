@@ -14,6 +14,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -36,6 +37,10 @@ public class IntroScene {
 	Button howToPlay;
 	Button startGame;
 	Button exitGame;
+	Button regular;
+	Button earth;
+	Button mars;
+	ObservableList<Button> options;
 	public HBox titleBox() {
 		Text h1 = new Text("Connect Four");
 		h1.setTextAlignment(TextAlignment.CENTER);
@@ -68,9 +73,21 @@ public class IntroScene {
 		howToPlay = new Button("How to Play");
 		startGame = new Button("Stat Game");
 		exitGame = new Button("Exit");
+		regular = new Button("Regular");
+		regular.setDisable(true);
+		earth = new Button("Earth");
+		mars = new Button("Mars");
+		
+		options = FXCollections.observableArrayList();
+		
+		options.add(regular);
+		options.add(earth);
+		options.add(mars);
+		ComboBox<Button> comboBox = new ComboBox<>(options);
+		comboBox.setPromptText("Themes");
 		// startGame.setOnAction(e->j.changeScene(createIntroScene()));
 		// startGame.setOnAction(e->startGame.setStyle("-fx-background-color: green;"));
-		HBox menu = new HBox(100, themes, howToPlay, startGame, exitGame);
+		HBox menu = new HBox(100, comboBox, howToPlay, startGame, exitGame);
 		menu.setStyle("-fx-padding: 10;" +
                 "-fx-border-style: solid inside;" +
                 "-fx-border-width: 5;" +

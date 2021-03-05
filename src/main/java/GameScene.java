@@ -12,6 +12,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -35,7 +36,10 @@ public class GameScene
 	Button themeBut;
 	Button newGameBut;
 	Button exitBut;
-
+	Button regular;
+	Button earth;
+	Button mars;
+	ObservableList<Button> options;
 	ListView <String> list = new ListView<>();
 	ObservableList<String> inList = FXCollections.observableArrayList("Player 1 is up");
 	//XYButton event handler
@@ -132,7 +136,13 @@ public class GameScene
 		newGameBut = new Button ("Start New Game");
 		exitBut = new Button("Exit");
 		// menu Hbox
-		HBox menuList = new HBox(100,revBut,themeBut,newGameBut,exitBut);
+		options = FXCollections.observableArrayList();
+		options.add(regular);
+		options.add(earth);
+		options.add(mars);
+		ComboBox<Button> comboBox = new ComboBox<>(options);
+		comboBox.setPromptText("Themes");
+		HBox menuList = new HBox(100,revBut,comboBox,newGameBut,exitBut);
 		menuList.setStyle("-fx-padding: 10;" +
                 "-fx-border-style: solid inside;" +
                 "-fx-border-width: 5;" +
