@@ -33,12 +33,15 @@ public class GameScene
 	GameLogic game = new GameLogic();
 
 	ListView <String> list = new ListView<>();
-	ObservableList<String> inList = FXCollections.observableArrayList();
+	
+	ObservableList<String> inList = FXCollections.observableArrayList("Player 1 is up");
+
 	//XYButton event handler
 	EventHandler<ActionEvent> handler = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent event) {
 			// Get info on button pressed
+			
 			XYButton button = (XYButton) event.getSource();
 			String first = "Player " + game.getCurrentPlayer() +  " has pressed " + GridPane.getColumnIndex(button) +  " " + GridPane.getRowIndex(button);
 			System.out.println("Player " + game.getCurrentPlayer() +  " has pressed " + GridPane.getColumnIndex(button) +  " " + GridPane.getRowIndex(button));
@@ -146,6 +149,7 @@ public class GameScene
 		board.setRight(eventLog);
 		board.setBottom(menu());
 		Scene gameScene = new Scene(board, 650,400);
+		list.setItems(inList);
 		board.setStyle("-fx-padding: 10;" +
                 "-fx-border-style: solid inside;" +
                 "-fx-border-width: 5;" +

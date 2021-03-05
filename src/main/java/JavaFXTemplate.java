@@ -25,16 +25,13 @@ public class JavaFXTemplate extends Application {
 	//feel free to remove the starter code from this method
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		// TODO Auto-generated method stub
 		primaryStage.setTitle("Connect Four by Cody & Krish");
 		GameScene g = new GameScene();
 		Scene s = g.createGameScene();
-		/*
 		IntroScene g2 = new IntroScene();
 		Scene s2 = g2.createIntroScene();
 		RulesScene g3 = new RulesScene();
 		Scene s3 = g3.createRulesScene();
-		*/
 		primaryStage.setScene(s);
 		primaryStage.show();
 	}
