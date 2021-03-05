@@ -133,8 +133,12 @@ public class GameScene
 	public HBox menu() {
 		revBut = new Button("Reverse");
 		themeBut = new Button("Themes");
-		newGameBut = new Button ("Start New Game");
+		newGameBut = new Button ("New Game");
 		exitBut = new Button("Exit");
+		regular = new Button("Regular");
+		earth = new Button("Earth");
+		mars = new Button("Mars");
+		regular.setDisable(true);
 		// menu Hbox
 		options = FXCollections.observableArrayList();
 		options.add(regular);
