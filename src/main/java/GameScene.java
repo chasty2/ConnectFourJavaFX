@@ -51,13 +51,12 @@ public class GameScene
 		public void handle(ActionEvent event) {
 			// Get info on button pressed
 			XYButton button = (XYButton) event.getSource();
-			System.out.println("Button pressed");
 			game.updateLogs(button);
 			// Press if valid move
 			if (button.getValid() == true)
 			{
 				button.pushButton(game.getCurrentPlayer());
-				if (game.checkWin(button) == true) 
+				if (game.checkWin(gameBoard, button) == true) 
 				{
 					System.out.println("Win condition reached!");
 				}
@@ -83,7 +82,6 @@ public class GameScene
 			{
 				Integer[] lastMove = game.pruneLogs();
 				XYButton lastButton = game.getMove(gameBoard, lastMove[0], lastMove[1]);
-				System.out.println("Found button");
 				lastButton.unPress();
 				game.changeTurn();
 			}
@@ -101,7 +99,6 @@ public class GameScene
 		list = new ListView<>();
 	}
 	
-	
 	public GridPane gameBoard() {
 
 		GridPane board = new GridPane();
@@ -114,19 +111,19 @@ public class GameScene
 		 *  
 		 */
 		XYButton prev = null;
-		for(int y = 0; y<7; y++) 
+		for(int column = 0; column<7; column++) 
 		{
-			for(int x = 0; x<6; x++) 
+			for(int row = 0; row<6; row++) 
 			{
 				// Init XYButton
-				XYButton b = new XYButton(x, y);
+				XYButton b = new XYButton(row, column);
 				b.setPrefSize(50, 50);
 				b.setStyle("-fx-background-color: grey;");
 				b.setOnAction(handler);			
 				// Link b to XYButton 'above' it, or null
 				b.setNext(prev);
 				// Add button to board
-				board.add(b, y, x);
+				board.add(b, column, row);
 				// Set prev to b for LL construction
 				prev = b;
 			}

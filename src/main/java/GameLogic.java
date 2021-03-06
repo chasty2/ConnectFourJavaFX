@@ -82,26 +82,26 @@ public class GameLogic
 	{
 		if (button.getValid() == true)
 		{
-			String move = "Player " + currentPlayer +  " pressed " + button.getX() 
-					+  ", "	+ button.getY();
+			String move = "Player " + currentPlayer +  " pressed " + button.getRow() 
+					+  ", "	+ button.getColumn();
 			moveList.add(move);
 		}
 		else
 		{
-			moveList.add(button.getX() + " ," + button.getY() +" is an "
+			moveList.add(button.getRow() + " ," + button.getColumn() +" is an "
 					+ "invalid move. Try again");
 			moveList.add("Player " + currentPlayer + " is up");
 		}
 	}
 	
 	// Traverse gameBoard (Gridpane of XYButtons), returns button at (x,y)
-	public XYButton getMove(GridPane board, Integer x, Integer y)
+	public XYButton getMove(GridPane board, Integer row, Integer column)
 	{
 		XYButton button = null;
 		for (Node node : board.getChildren())
 		{
-			if(GridPane.getRowIndex(node) == x &&
-					GridPane.getColumnIndex(node) == y)
+			if(GridPane.getRowIndex(node) == row &&
+					GridPane.getColumnIndex(node) == column)
 			{
 				button = (XYButton) node;
 			}
@@ -140,33 +140,291 @@ public class GameLogic
 		return lastMove;
 	}
 	
-	// checkWin helper function
-	public boolean checkWinLeft(XYButton button, Integer i)
+	/*
+	 *  checkWin recursive helper functions
+	 */
+	public boolean _checkWinLeft(GridPane board, Integer count, XYButton button)
 	{
 		/*
-		Integer x = button.getX();
-		Integer y = button.getY();
-		
-		// Check bounds of grid
-		if (x == 0)
+		 *  Base Cases
+		 */
+		// Connect 4
+		if (count == 4 && button.getPlayer() == getCurrentPlayer())
 		{
-			
+			return true;
 		}
-		*/
+		// Opponents piece
+		else if (button.getPlayer() != getCurrentPlayer())
+		{
+			return false;
+		}
+		// Reached left boundary of grid
+		else if (button.getColumn() == 0)
+		{
+			return false;
+		}
+		/*
+		 * Recursive Case
+		 */
+		// Continue checking for win in left direction
+		else if (button.getPlayer() == getCurrentPlayer())
+		{
+			count++;
+			XYButton leftButton = this.getMove(board, button.getRow(), button.getColumn()-1);
+			return _checkWinLeft(board, count, leftButton);
+		}
 		return false;
 	}
 	
+	public boolean _checkWinRight(GridPane board, Integer count, XYButton button)
+	{
+		/*
+		 *  Base Cases
+		 */
+		// Connect 4
+		if (count == 4 && button.getPlayer() == getCurrentPlayer())
+		{
+			return true;
+		}
+		// Opponents piece
+		else if (button.getPlayer() != getCurrentPlayer())
+		{
+			return false;
+		}
+		// Reached right boundary of grid
+		else if (button.getColumn() == 6)
+		{
+			return false;
+		}
+		/*
+		 * Recursive Case
+		 */
+		// Continue checking for win in left direction
+		else if (button.getPlayer() == getCurrentPlayer())
+		{
+			count++;
+			XYButton rightButton = this.getMove(board, button.getRow(), button.getColumn()+1);
+			return _checkWinRight(board, count, rightButton);
+		}
+		return false;
+	}
+	
+	public boolean _checkWinUp(GridPane board, Integer count, XYButton button)
+	{
+		/*
+		 *  Base Cases
+		 */
+		// Connect 4
+		if (count == 4 && button.getPlayer() == getCurrentPlayer())
+		{
+			return true;
+		}
+		// Opponents piece
+		else if (button.getPlayer() != getCurrentPlayer())
+		{
+			return false;
+		}
+		// Reached upper boundary of grid
+		else if (button.getRow() == 0)
+		{
+			return false;
+		}
+		/*
+		 * Recursive Case
+		 */
+		// Continue checking for win in left direction
+		else if (button.getPlayer() == getCurrentPlayer())
+		{
+			count++;
+			XYButton upButton = this.getMove(board, button.getRow()-1, button.getColumn());
+			return _checkWinUp(board, count, upButton);
+		}
+		return false;
+	}
+	
+	public boolean _checkWinDown(GridPane board, Integer count, XYButton button)
+	{
+		/*
+		 *  Base Cases
+		 */
+		// Connect 4
+		if (count == 4 && button.getPlayer() == getCurrentPlayer())
+		{
+			return true;
+		}
+		// Opponents piece
+		else if (button.getPlayer() != getCurrentPlayer())
+		{
+			return false;
+		}
+		// Reached upper boundary of grid
+		else if (button.getRow() == 5)
+		{
+			return false;
+		}
+		/*
+		 * Recursive Case
+		 */
+		// Continue checking for win in left direction
+		else if (button.getPlayer() == getCurrentPlayer())
+		{
+			count++;
+			XYButton downButton = this.getMove(board, button.getRow()+1, button.getColumn());
+			return _checkWinDown(board, count, downButton);
+		}
+		return false;
+	}
+	
+	public boolean _checkWinNW(GridPane board, Integer count, XYButton button)
+	{
+		/*
+		 *  Base Cases
+		 */
+		// Connect 4
+		if (count == 4 && button.getPlayer() == getCurrentPlayer())
+		{
+			return true;
+		}
+		// Opponents piece
+		else if (button.getPlayer() != getCurrentPlayer())
+		{
+			return false;
+		}
+		// Reached upper boundary of grid
+		else if (button.getRow() == 0 || button.getColumn() == 0)
+		{
+			return false;
+		}
+		/*
+		 * Recursive Case
+		 */
+		// Continue checking for win in left direction
+		else if (button.getPlayer() == getCurrentPlayer())
+		{
+			count++;
+			XYButton nwButton = this.getMove(board, button.getRow()-1, button.getColumn()-1);
+			return _checkWinNW(board, count, nwButton);
+		}
+		return false;
+	}
+	
+	public boolean _checkWinNE(GridPane board, Integer count, XYButton button)
+	{
+		/*
+		 *  Base Cases
+		 */
+		// Connect 4
+		if (count == 4 && button.getPlayer() == getCurrentPlayer())
+		{
+			return true;
+		}
+		// Opponents piece
+		else if (button.getPlayer() != getCurrentPlayer())
+		{
+			return false;
+		}
+		// Reached upper boundary of grid
+		else if (button.getRow() == 0 || button.getColumn() == 6)
+		{
+			return false;
+		}
+		/*
+		 * Recursive Case
+		 */
+		// Continue checking for win in left direction
+		else if (button.getPlayer() == getCurrentPlayer())
+		{
+			count++;
+			XYButton downButton = this.getMove(board, button.getRow()-1, button.getColumn()+1);
+			return _checkWinNE(board, count, downButton);
+		}
+		return false;
+	}
+	
+	public boolean _checkWinSW(GridPane board, Integer count, XYButton button)
+	{
+		/*
+		 *  Base Cases
+		 */
+		// Connect 4
+		if (count == 4 && button.getPlayer() == getCurrentPlayer())
+		{
+			return true;
+		}
+		// Opponents piece
+		else if (button.getPlayer() != getCurrentPlayer())
+		{
+			return false;
+		}
+		// Reached lower boundary of grid
+		else if (button.getRow() == 5 || button.getColumn() == 0)
+		{
+			return false;
+		}
+		/*
+		 * Recursive Case
+		 */
+		// Continue checking for win in left direction
+		else if (button.getPlayer() == getCurrentPlayer())
+		{
+			count++;
+			XYButton downButton = this.getMove(board, button.getRow()+1, button.getColumn()-1);
+			return _checkWinSW(board, count, downButton);
+		}
+		return false;
+	}
+	
+	public boolean _checkWinSE(GridPane board, Integer count, XYButton button)
+	{
+		/*
+		 *  Base Cases
+		 */
+		// Connect 4
+		if (count == 4 && button.getPlayer() == getCurrentPlayer())
+		{
+			return true;
+		}
+		// Opponents piece
+		else if (button.getPlayer() != getCurrentPlayer())
+		{
+			return false;
+		}
+		// Reached lower boundary of grid
+		else if (button.getRow() == 5 || button.getColumn() == 6)
+		{
+			return false;
+		}
+		/*
+		 * Recursive Case
+		 */
+		// Continue checking for win in left direction
+		else if (button.getPlayer() == getCurrentPlayer())
+		{
+			count++;
+			XYButton downButton = this.getMove(board, button.getRow()+1, button.getColumn()+1);
+			return _checkWinSE(board, count, downButton);
+		}
+		return false;
+	}
+
 	/*
 	 *  Recursively search in cardinal and intercardinal directions for
 	 *  4 consecutive pieces of one color 
 	 */
-	public boolean checkWin(XYButton button)
+	public boolean checkWin(GridPane board, XYButton button)
 	{
-		// checkWinLeft
-		// checkWinRight
-		// checkWinUp
-		// checkWinDown
-		
+		// Cardinal Directions
+		if (_checkWinLeft(board,1,button) || _checkWinRight(board,1,button) ||
+				_checkWinUp(board,1,button) || _checkWinDown(board,1,button))
+		{
+			return true;
+		}
+		// Intercardinal Directions
+		else if (_checkWinNW(board,1,button) || _checkWinNE(board,1,button) ||
+				_checkWinSW(board,1,button) || _checkWinSE(board,1,button))
+		{
+			return true;
+		}
 		
 		return false;
 	}

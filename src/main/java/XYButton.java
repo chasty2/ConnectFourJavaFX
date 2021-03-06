@@ -25,10 +25,10 @@ import javafx.util.Duration;
 public class XYButton extends Button
 {
 	// X,Y coordinates of button in GridPane
-	private Integer x;
-	private Integer y;
+	private Integer row;
+	private Integer column;
 	// Event Handler, will move to GameScene.java
-	public EventHandler<ActionEvent> handler;
+	//public EventHandler<ActionEvent> handler;
 	// Boolean for valid move
 	private boolean valid;
 	// Integer to denote who pushed this button
@@ -39,17 +39,17 @@ public class XYButton extends Button
 	/*
 	 *  Constructor
 	 */
-	public XYButton(Integer newX, Integer newY) 
+	public XYButton(Integer newRow, Integer newColumn) 
 	{
 		// Set next to null. Will be set on GridPane Init
 		nextButton = null;
 		// Set x,y coordinates
-		x = newX;
-		y = newY;
+		row = newRow;
+		column = newColumn;
 		// Set player as 0. Reset as 1 or 2 based on who presses this button
 		player = 0;
 		// Set as valid move if button is on the bottom of the GridPane
-		if (this.x == 5)
+		if (this.row == 5)
 		{
 			this.valid = true;
 		}
@@ -62,14 +62,14 @@ public class XYButton extends Button
 	/*
 	 *  Getters
 	 */
-	public Integer getX()
+	public Integer getRow()
 	{
-		return this.x;
+		return this.row;
 	}
 	
-	public Integer getY()
+	public Integer getColumn()
 	{
-		return this.y;
+		return this.column;
 	}
 	
 	public boolean getValid()
@@ -91,14 +91,14 @@ public class XYButton extends Button
 	/*
 	 * Setters
 	 */
-	public void setX(Integer newX)
+	public void setRow(Integer newRow)
 	{
-		this.x = newX;
+		this.row = newRow;
 	}
 	
-	public void setY(Integer newY)
+	public void setY(Integer newColumn)
 	{
-		this.y = newY;
+		this.column = newColumn;
 	}
 	
 	// Marks this XYButton as a valid move

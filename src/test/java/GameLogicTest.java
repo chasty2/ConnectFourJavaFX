@@ -80,43 +80,43 @@ class GameLogicTest
 	void testGetMove()
 	{
 		// Build  simplified gameBoard
-		for(int x = 0; x<7; x++) 
+		for(int column = 0; column<7; column++) 
 		{
-			for(int y = 0; y<6; y++) 
+			for(int row = 0; row<6; row++) 
 			{
-				XYButton b = new XYButton(x, y);
-				board.add(b, x, y);
+				XYButton b = new XYButton(row, column);
+				board.add(b, column, row);
 			}
 		}
 		// Test XYButtons returned by getMove()
 		XYButton button = game.getMove(board,1,1);
-		assertEquals(1, button.getX(), "button.getX() failed");
-		assertEquals(1, button.getY(), "button.getY() failed");
+		assertEquals(1, button.getRow(), "button.getRow() failed");
+		assertEquals(1, button.getColumn(), "button.getY() failed");
 		
-		button = game.getMove(board, 3, 5);
-		assertEquals(3, button.getX(), "button.getX() failed");
-		assertEquals(5, button.getY(), "button.getY() failed");
+		button = game.getMove(board, 3, 6);
+		assertEquals(3, button.getRow(), "button.getX() failed");
+		assertEquals(6, button.getColumn(), "button.getY() failed");
 		
-		button = game.getMove(board, 6, 2);
-		assertEquals(6, button.getX(), "button.getX() failed");
-		assertEquals(2, button.getY(), "button.getY() failed");
+		button = game.getMove(board, 5, 2);
+		assertEquals(5, button.getRow(), "button.getX() failed");
+		assertEquals(2, button.getColumn(), "button.getY() failed");
 		
 		// Test values at edge of the board
-		button = game.getMove(board, 6, 5);
-		assertEquals(6, button.getX(), "button.getX() failed");
-		assertEquals(5, button.getY(), "button.getY() failed");
+		button = game.getMove(board, 5, 6);
+		assertEquals(5, button.getRow(), "button.getX() failed");
+		assertEquals(6, button.getColumn(), "button.getY() failed");
 	}
 	
 	@Test
 	void testGetMoveWhenNull()
 	{
 		// Build  simplified gameBoard
-		for(int x = 0; x<7; x++) 
+		for(int column = 0; column<7; column++) 
 		{
-			for(int y = 0; y<6; y++) 
+			for(int row = 0; row<6; row++) 
 			{
-				XYButton b = new XYButton(x, y);
-				board.add(b, x, y);
+				XYButton b = new XYButton(row, column);
+				board.add(b, column, row);
 			}
 		}
 		// Test getMove() with invalid addresses

@@ -66,15 +66,15 @@ class XYButtonTest
 	@Test
 	void testGetX()
 	{
-		assertEquals(0, button1.getX(),"button1 getX() failed");
-		assertEquals(5, button2.getX(),"button2 getX() failed");
+		assertEquals(0, button1.getRow(),"button1 getRow() failed");
+		assertEquals(5, button2.getRow(),"button2 getRow() failed");
 	}
 	
 	@Test
 	void testGetY()
 	{
-		assertEquals(0, button1.getY(),"button1 getY() failed");
-		assertEquals(5, button2.getY(),"button2 getY() failed");
+		assertEquals(0, button1.getColumn(),"button1 getY() failed");
+		assertEquals(5, button2.getColumn(),"button2 getY() failed");
 	}
 	
 	@Test
@@ -117,33 +117,33 @@ class XYButtonTest
 	@Test
 	void testSetX()
 	{
-		button1.setX(1);
-		assertEquals(1, button1.getX(), "button1.setX() failed");
-		button2.setX(1);
-		assertEquals(1, button2.getX(), "button2.setX() failed");
+		button1.setRow(1);
+		assertEquals(1, button1.getRow(), "button1.setRow() failed");
+		button2.setRow(1);
+		assertEquals(1, button2.getRow(), "button2.setRow() failed");
 	}
 	
 	@Test
 	void testSetY()
 	{
 		button1.setY(1);
-		assertEquals(1, button1.getY(), "button1.setY() failed");
+		assertEquals(1, button1.getColumn(), "button1.setY() failed");
 		button2.setY(1);
-		assertEquals(1, button2.getY(), "button2.setY() failed");
+		assertEquals(1, button2.getColumn(), "button2.setY() failed");
 	}
 	
 	@Test
 	void testSetValidWhenTrue()
 	{
-		button2.setValid();
-		assertTrue(button2.getValid(),"button2.setValid() failed");
+		button2.setValid(true);
+		assertTrue(button2.getValid(),"button2.setValid(true) failed");
 	}
 	
 	@Test
 	void testSetValidWhenFalse()
 	{
-		button1.setValid();
-		assertTrue(button1.getValid(),"button1.setValid() failed");
+		button1.setValid(true);
+		assertTrue(button1.getValid(),"button1.setValid(true) failed");
 	}
 	
 	@Test
