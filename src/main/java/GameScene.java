@@ -43,12 +43,22 @@ public class GameScene
 	ListView <String> list = new ListView<>();
 	ObservableList<String> moveList = FXCollections.observableArrayList("Player 1 is up");
 	
+	/*
+	 * Constructor
+	 *
+	public GameScene()
+	{	game = new GameLogic();
+		center = new gameBoard();
+	}*/
+	
+	
 	//XYButton event handler
 	EventHandler<ActionEvent> handler = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent event) {
 			// Get info on button pressed
 			XYButton button = (XYButton) event.getSource();
+			System.out.println("Button pressed");
 			game.updateLogs(button);
 			// Press if valid move
 			if (button.getValid() == true)
@@ -62,6 +72,32 @@ public class GameScene
 		}
 	};
 	
+	// revBut EventHandler
+	EventHandler<ActionEvent> revHandler = new EventHandler<ActionEvent>()
+	{
+		@Override
+		public void handle(ActionEvent event)
+		{
+			System.out.println(game.getMoveList().size());
+			if (game.getMoveList().size() == 1)
+			{
+				System.out.println("No move to reverse");
+			}
+			else
+			{
+				Integer[] lastMove = game.pruneLogs();
+				XYButton lastButton = game.getMove(gameBoard, lastMove[0], lastMove[1]);
+				System.out.println("Found button");
+				lastButton.unPress();
+				game.changeTurn();
+			}
+			// Display logs
+			list.setItems(game.getMoveList());
+		}
+	};
+	
+	GridPane gameBoard = gameBoard();
+
 	public GridPane gameBoard() {
 
 		GridPane board = new GridPane();
@@ -115,6 +151,8 @@ public class GameScene
 	
 	public HBox menu() {
 		revBut = new Button("Reverse");
+		revBut.setOnAction(revHandler);
+		
 		themeBut = new Button("Themes");
 		newGameBut = new Button ("New Game");
 		exitBut = new Button("Exit");
@@ -138,13 +176,14 @@ public class GameScene
 		return menuList;
 	}
 	
+
 	public Scene createGameScene() {
 		BorderPane board = new BorderPane();
-		GridPane center = gameBoard();
+		//center = gameBoard();
 		VBox eventLog = eventLog();
 		board.setPrefHeight(200);
 		eventLog.setPrefWidth(200);
-		board.setCenter(center);
+		board.setCenter(gameBoard);
 		board.setRight(eventLog);
 		board.setBottom(menu());
 		Scene gameScene = new Scene(board, 650,400);

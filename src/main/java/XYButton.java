@@ -102,9 +102,9 @@ public class XYButton extends Button
 	}
 	
 	// Marks this XYButton as a valid move
-	public void setValid()
+	public void setValid(boolean bool)
 	{
-		this.valid = true;
+		this.valid = bool;
 	}
 	
 	// Sets a button as having been pushed by player 1 or 2
@@ -140,10 +140,24 @@ public class XYButton extends Button
 		// Set move 'above' current one as valid
 		if (this.getNext() != null)
 		{
-			this.getNext().setValid();
+			this.getNext().setValid(true);
 		}
 		this.setColor(currentPlayer);
 		this.setPlayer(currentPlayer);
+	}
+	
+	// Used in reverse move
+	public void unPress()
+	{
+		// enable button
+		this.valid = true;
+		// Set move 'above' current one as valid
+		if (this.getNext() != null)
+		{
+			this.getNext().setValid(false);
+		}
+		this.setStyle("-fx-background-color: grey;");
+		this.setPlayer(0);
 	}
 
 }

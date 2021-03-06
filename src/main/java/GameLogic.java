@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.ListIterator;
 import java.util.function.Function;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
@@ -79,6 +80,7 @@ public class GameLogic
 	 */
 	public void updateLogs(XYButton button)
 	{
+		// TODO: differentiate between valid entries and invalid entries
 		String move = "Player " + currentPlayer +  " pressed " + button.getX() 
 				+  ", "	+ button.getY();
 		moveList.add(move);
@@ -105,10 +107,35 @@ public class GameLogic
 		return button;
 	}
 	
-	// Prune event logs, return XYButton from last move made
-	public void pruneLogs()
+	/*
+	 *  Iterate through moveList in reverse, pruning event logs from previous
+	 *  turn. Return array with [x,y] coordinates of last valid move
+	 */
+	public Integer[] pruneLogs()
 	{
-	
+		int i = moveList.size();
+		String s;
+		Pattern validMove = Pattern.compile("^Player \\d{1} pressed (\\d{1}), (\\d{1})$");
+		Matcher matchMove;
+		Integer[] lastMove = new Integer[2];
+		
+		ListIterator<String> logIter = moveList.listIterator(moveList.size());
+		while(logIter.hasPrevious())
+		{
+			s = logIter.previous();
+			matchMove = validMove.matcher(s);
+			i--;
+			
+			if(matchMove.matches())
+			{
+				lastMove[0] = Integer.parseInt(matchMove.group(1));
+				lastMove[1] = Integer.parseInt(matchMove.group(2));
+				System.out.println("Found " + lastMove[0] + ", " + lastMove[1]);
+				break;
+			}
+		}
+		moveList.remove(i-1, moveList.size());
+		return lastMove;
 	}
 	
 	
