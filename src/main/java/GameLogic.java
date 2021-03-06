@@ -25,6 +25,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.Node;
+import java.util.regex.*;
 
 /*
  * A Class to manage the logic of the Connect 4 Game
@@ -36,7 +37,7 @@ public class GameLogic
 	private final Integer playerOne;
 	private final Integer playerTwo;
 	private static Integer currentPlayer;
-	public ObservableList<String> moveList; 
+	private ObservableList<String> moveList; 
 	
 	// Constructor
 	public GameLogic()
@@ -65,6 +66,11 @@ public class GameLogic
 	public Integer getCurrentPlayer()
 	{
 		return currentPlayer;
+	}
+	
+	public ObservableList<String> getMoveList()
+	{
+		return moveList;
 	}
 	
 	/*
@@ -98,6 +104,13 @@ public class GameLogic
 		}
 		return button;
 	}
+	
+	// Prune event logs, return XYButton from last move made
+	public void pruneLogs()
+	{
+	
+	}
+	
 	
 	/*
 	 *  Recursively search in cardinal and intercardinal directions for

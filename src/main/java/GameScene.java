@@ -49,20 +49,16 @@ public class GameScene
 		public void handle(ActionEvent event) {
 			// Get info on button pressed
 			XYButton button = (XYButton) event.getSource();
+			game.updateLogs(button);
 			// Press if valid move
 			if (button.getValid() == true)
 			{
-				game.updateLogs(button);
 				button.pushButton(game.getCurrentPlayer());
-				//game.checkWin();
+				//if game.checkWin() == true, end game;
 				game.changeTurn();
 			}
-			else
-			{
-				game.updateLogs(button);
-			}
 			// Display logs
-			list.setItems(game.moveList);
+			list.setItems(game.getMoveList());
 		}
 	};
 	
