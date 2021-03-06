@@ -34,6 +34,7 @@ public class JavaFXTemplate extends Application {
 		Scene s = g.createGameScene();
 		RulesScene g3 = new RulesScene();
 		Scene s3 = g3.createRulesScene();
+		
 		g.exitBut.setOnAction(e->primaryStage.close());
 		g2.startGame.setOnAction(e->primaryStage.setScene(s));
 		g2.howToPlay.setOnAction(e->primaryStage.setScene(s3));

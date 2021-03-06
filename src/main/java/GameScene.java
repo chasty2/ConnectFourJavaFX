@@ -3,6 +3,7 @@ import java.util.Iterator;
 import java.util.Stack;
 import java.util.function.Function;
 import javafx.animation.PauseTransition;
+import javafx.animation.SequentialTransition;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -40,10 +41,11 @@ public class GameScene
 	Button regular;
 	Button earth;
 	Button mars;
+	BorderPane board = new BorderPane();
 	ObservableList<Button> options;
 	ListView <String> list;
 	ObservableList<String> moveList;
-	
+	PauseTransition pause = new PauseTransition(Duration.seconds(2));
 	//XYButton event handler
 	EventHandler<ActionEvent> handler = new EventHandler<ActionEvent>() 
 	{
@@ -58,7 +60,15 @@ public class GameScene
 				button.pushButton(game.getCurrentPlayer());
 				if (game.checkWin(gameBoard, button) == true) 
 				{
-					System.out.println("Win condition reached!");
+					Text h1 = new Text("Player " + game.getCurrentPlayer() + " WON");
+					h1.setStyle("-fx-font: 60px Tahoma;" +
+				"-fx-fill: linear-gradient(from 0% 60% to 150% 200%, repeat, blue 10%, yellow 50%);" +
+				"-fx-stroke: black;");
+					pause.setOnFinished(e->{board.setCenter(h1);});
+					pause.play();
+					
+					
+					System.out.println("Player " + game.getCurrentPlayer() + " WON");
 				}
 				game.changeTurn();
 			}
@@ -179,7 +189,7 @@ public class GameScene
 	
 
 	public Scene createGameScene() {
-		BorderPane board = new BorderPane();
+		
 		//center = gameBoard();
 		VBox eventLog = eventLog();
 		board.setPrefHeight(200);
