@@ -140,11 +140,35 @@ public class GameLogic
 		return lastMove;
 	}
 	
+	// checkWin helper function
+	public boolean checkWinLeft(XYButton button, Integer i)
+	{
+		/*
+		Integer x = button.getX();
+		Integer y = button.getY();
+		
+		// Check bounds of grid
+		if (x == 0)
+		{
+			
+		}
+		*/
+		return false;
+	}
 	
 	/*
 	 *  Recursively search in cardinal and intercardinal directions for
 	 *  4 consecutive pieces of one color 
 	 */
-	
+	public boolean checkWin(XYButton button)
+	{
+		// checkWinLeft
+		// checkWinRight
+		// checkWinUp
+		// checkWinDown
+		
+		
+		return false;
+	}
 
 }

@@ -57,7 +57,10 @@ public class GameScene
 			if (button.getValid() == true)
 			{
 				button.pushButton(game.getCurrentPlayer());
-				//if game.checkWin() == true, end game;
+				if (game.checkWin(button) == true) 
+				{
+					System.out.println("Win condition reached!");
+				}
 				game.changeTurn();
 			}
 			// Display logs
@@ -65,7 +68,7 @@ public class GameScene
 		}
 	};
 	
-	// revBut EventHandler
+	// Reverse Button handler
 	EventHandler<ActionEvent> revHandler = new EventHandler<ActionEvent>()
 	{
 		@Override
@@ -90,17 +93,15 @@ public class GameScene
 	};
 	
 	/*
-	 * Constructor
+	 * Constructor, allows game to access gameBoard
 	 */
 	public GameScene()
 	{	game = new GameLogic();
 		gameBoard = gameBoard();
 		list = new ListView<>();
-		//moveList = FXCollections.observableArrayList("Player 1 is up");
 	}
 	
-	//GridPane gameBoard = gameBoard();
-
+	
 	public GridPane gameBoard() {
 
 		GridPane board = new GridPane();
