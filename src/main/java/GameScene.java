@@ -31,7 +31,8 @@ import javafx.util.Duration;
 public class GameScene 
 {	
 	// Manage game state
-	GameLogic game = new GameLogic();
+	GameLogic game;
+	GridPane gameBoard;
 	Button revBut;
 	Button themeBut;
 	Button newGameBut;
@@ -40,17 +41,8 @@ public class GameScene
 	Button earth;
 	Button mars;
 	ObservableList<Button> options;
-	ListView <String> list = new ListView<>();
-	ObservableList<String> moveList = FXCollections.observableArrayList("Player 1 is up");
-	
-	/*
-	 * Constructor
-	 *
-	public GameScene()
-	{	game = new GameLogic();
-		center = new gameBoard();
-	}*/
-	
+	ListView <String> list;
+	ObservableList<String> moveList;
 	
 	//XYButton event handler
 	EventHandler<ActionEvent> handler = new EventHandler<ActionEvent>() {
@@ -96,7 +88,17 @@ public class GameScene
 		}
 	};
 	
-	GridPane gameBoard = gameBoard();
+	/*
+	 * Constructor
+	 */
+	public GameScene()
+	{	game = new GameLogic();
+		gameBoard = gameBoard();
+		list = new ListView<>();
+		moveList = FXCollections.observableArrayList("Player 1 is up");
+	}
+	
+	//GridPane gameBoard = gameBoard();
 
 	public GridPane gameBoard() {
 
