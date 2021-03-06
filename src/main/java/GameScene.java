@@ -41,41 +41,28 @@ public class GameScene
 	Button mars;
 	ObservableList<Button> options;
 	ListView <String> list = new ListView<>();
-	ObservableList<String> inList = FXCollections.observableArrayList("Player 1 is up");
+	ObservableList<String> moveList = FXCollections.observableArrayList("Player 1 is up");
+	
 	//XYButton event handler
 	EventHandler<ActionEvent> handler = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent event) {
 			// Get info on button pressed
 			XYButton button = (XYButton) event.getSource();
-			String first = "Player " + game.getCurrentPlayer() +  " has pressed " + GridPane.getColumnIndex(button) +  " " + GridPane.getRowIndex(button);
-			System.out.println("Player " + game.getCurrentPlayer() +  " has pressed " + GridPane.getColumnIndex(button) +  " " + GridPane.getRowIndex(button));
 			// Press if valid move
 			if (button.getValid() == true)
 			{
-				// Set next button as a valid move
-				if (button.getNext() != null)
-				{
-					button.getNext().setValid();
-				}
-				System.out.println("Valid Move");
-				inList.add(first);
-				
-				button.setColor(game.getCurrentPlayer());
+				game.updateLogs(button);
+				button.pushButton(game.getCurrentPlayer());
 				//game.checkWin();
 				game.changeTurn();
-				String two = "Player " + game.getCurrentPlayer() + " Is Up";
-				System.out.println("Player " + game.getCurrentPlayer() + " Is Up");
-				inList.add(two);
-				list.setItems(inList);
 			}
 			else
 			{
-				String errorMessage = "Sorry, it is a invalid move";
-				inList.add(errorMessage);
-				list.setItems(inList);
-				System.out.println("Invalid Move");
+				game.updateLogs(button);
 			}
+			// Display logs
+			list.setItems(game.moveList);
 		}
 	};
 	
@@ -91,9 +78,9 @@ public class GameScene
 		 *  
 		 */
 		XYButton prev = null;
-		for(int x = 0; x<7; x++) 
+		for(int y = 0; y<7; y++) 
 		{
-			for(int y = 0; y<6; y++) 
+			for(int x = 0; x<6; x++) 
 			{
 				// Init XYButton
 				XYButton b = new XYButton(x, y);
@@ -103,7 +90,7 @@ public class GameScene
 				// Link b to XYButton 'above' it, or null
 				b.setNext(prev);
 				// Add button to board
-				board.add(b, x, y);
+				board.add(b, y, x);
 				// Set prev to b for LL construction
 				prev = b;
 			}
@@ -119,7 +106,7 @@ public class GameScene
 	public VBox eventLog() {
 		Text h1 = new Text("Event Log");
 		h1.setTextAlignment(TextAlignment.CENTER);
-		list.setItems(inList);
+		list.setItems(moveList);
 		VBox eventLogList = new VBox(h1, list);
 		eventLogList.setStyle("-fx-padding: 10;" +
                 "-fx-border-style: solid inside;" +

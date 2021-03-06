@@ -26,7 +26,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.Node;
 
-
 /*
  * A Class to manage the logic of the Connect 4 Game
  * 
@@ -37,6 +36,7 @@ public class GameLogic
 	private final Integer playerOne;
 	private final Integer playerTwo;
 	private static Integer currentPlayer;
+	public ObservableList<String> moveList; 
 	
 	// Constructor
 	public GameLogic()
@@ -45,6 +45,7 @@ public class GameLogic
 		playerOne = 1;
 		playerTwo = 2;
 		currentPlayer = 1;
+		moveList = FXCollections.observableArrayList("Player 1 is up");
 	}
 	
 	public void changeTurn()
@@ -52,10 +53,12 @@ public class GameLogic
 		if (currentPlayer == playerOne)
 		{
 			currentPlayer = playerTwo;
+			moveList.add("Player 2 is up");
 		}
 		else
 		{
 			currentPlayer = playerOne;
+			moveList.add("Player 1 is up");
 		}
 	}
 	
@@ -64,14 +67,31 @@ public class GameLogic
 		return currentPlayer;
 	}
 	
-	//Traverse gameBoard (Gridpane of XYButtons), returns button at (x,y)
+	/*
+	 *  Adds move to log, returns reversed observable list to gameScene
+	 *  Updates the game's event logs as if they were a stack of Strings
+	 */
+	public void updateLogs(XYButton button)
+	{
+		String move = "Player " + currentPlayer +  " pressed " + button.getX() 
+				+  ", "	+ button.getY();
+		moveList.add(move);
+		
+		if (button.getValid() == false)
+		{
+			moveList.add("Invalid Move, Please Try Again");
+			moveList.add("Player " + currentPlayer + " is up");
+		}
+	}
+	
+	// Traverse gameBoard (Gridpane of XYButtons), returns button at (x,y)
 	public XYButton getMove(GridPane board, Integer x, Integer y)
 	{
 		XYButton button = null;
 		for (Node node : board.getChildren())
 		{
-			if(GridPane.getRowIndex(node) == y &&
-					GridPane.getColumnIndex(node) == x)
+			if(GridPane.getRowIndex(node) == x &&
+					GridPane.getColumnIndex(node) == y)
 			{
 				button = (XYButton) node;
 			}
@@ -79,4 +99,10 @@ public class GameLogic
 		return button;
 	}
 	
+	/*
+	 *  Recursively search in cardinal and intercardinal directions for
+	 *  4 consecutive pieces of one color 
+	 */
+	
+
 }

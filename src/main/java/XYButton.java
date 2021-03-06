@@ -49,7 +49,7 @@ public class XYButton extends Button
 		// Set player as 0. Reset as 1 or 2 based on who presses this button
 		player = 0;
 		// Set as valid move if button is on the bottom of the GridPane
-		if (this.y == 5)
+		if (this.x == 5)
 		{
 			this.valid = true;
 		}
@@ -130,6 +130,20 @@ public class XYButton extends Button
 		{
 			this.setStyle("-fx-background-color: blue;");
 		}
+	}
+	
+	// Front-end for Getters/Setters of XYButton
+	public void pushButton(Integer currentPlayer)
+	{
+		// Disable button
+		this.valid = false;
+		// Set move 'above' current one as valid
+		if (this.getNext() != null)
+		{
+			this.getNext().setValid();
+		}
+		this.setColor(currentPlayer);
+		this.setPlayer(currentPlayer);
 	}
 
 }
