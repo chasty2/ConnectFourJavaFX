@@ -80,14 +80,16 @@ public class GameLogic
 	 */
 	public void updateLogs(XYButton button)
 	{
-		// TODO: differentiate between valid entries and invalid entries
-		String move = "Player " + currentPlayer +  " pressed " + button.getX() 
-				+  ", "	+ button.getY();
-		moveList.add(move);
-		
-		if (button.getValid() == false)
+		if (button.getValid() == true)
 		{
-			moveList.add("Invalid Move, Please Try Again");
+			String move = "Player " + currentPlayer +  " pressed " + button.getX() 
+					+  ", "	+ button.getY();
+			moveList.add(move);
+		}
+		else
+		{
+			moveList.add(button.getX() + " ," + button.getY() +" is an "
+					+ "invalid move. Try again");
 			moveList.add("Player " + currentPlayer + " is up");
 		}
 	}

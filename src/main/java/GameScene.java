@@ -45,7 +45,8 @@ public class GameScene
 	ObservableList<String> moveList;
 	
 	//XYButton event handler
-	EventHandler<ActionEvent> handler = new EventHandler<ActionEvent>() {
+	EventHandler<ActionEvent> handler = new EventHandler<ActionEvent>() 
+	{
 		@Override
 		public void handle(ActionEvent event) {
 			// Get info on button pressed
@@ -95,7 +96,7 @@ public class GameScene
 	{	game = new GameLogic();
 		gameBoard = gameBoard();
 		list = new ListView<>();
-		moveList = FXCollections.observableArrayList("Player 1 is up");
+		//moveList = FXCollections.observableArrayList("Player 1 is up");
 	}
 	
 	//GridPane gameBoard = gameBoard();
