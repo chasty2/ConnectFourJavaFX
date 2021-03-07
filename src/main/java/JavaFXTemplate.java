@@ -91,8 +91,20 @@ public class JavaFXTemplate extends Application {
 		                "-fx-border-radius: 0;");
 				game.menuList.setStyle("-fx-padding: 10;" +
 		                "-fx-border-style: solid inside;" +
-		                "-fx-border-width: 0;" +
-		                "-fx-border-radius: 0;");
+		                "-fx-border-width: 5;" +
+		                "-fx-border-radius: 2;" +
+		                "-fx-border-color: green;");
+				game.gboard.setStyle("-fx-padding: 10;" +
+                "-fx-border-style: solid inside;" +
+                "-fx-border-width: 5;" +
+                "-fx-border-radius: 2;" +
+                "-fx-border-color: blue;");
+				
+				game.board.setStyle("-fx-padding: 10;" +
+		                "-fx-border-style: solid inside;" +
+		                "-fx-border-width: 5;" +
+		                "-fx-border-radius: 2;" +
+		                "-fx-border-color: grey;");
 				themes.earthButton.setDisable(true);
 				themes.mars.setDisable(false);
 				themes.regular.setDisable(false);
@@ -127,8 +139,22 @@ public class JavaFXTemplate extends Application {
 		                "-fx-border-radius: 0;");
 				game.menuList.setStyle("-fx-padding: 10;" +
 		                "-fx-border-style: solid inside;" +
-		                "-fx-border-width: 0;" +
-		                "-fx-border-radius: 0;");
+		                "-fx-border-width: 5;" +
+		                "-fx-border-radius: 2;" +
+		                "-fx-border-color: orange;");
+				game.gboard.setStyle("-fx-padding: 10;" +
+                "-fx-border-style: solid inside;" +
+                "-fx-border-width: 5;" +
+                "-fx-border-radius: 2;" +
+                "-fx-border-color: red;");
+				
+				game.board.setStyle("-fx-padding: 10;" +
+		                "-fx-border-style: solid inside;" +
+		                "-fx-border-width: 5;" +
+		                "-fx-border-radius: 2;" +
+		                "-fx-border-color: brown;");
+				
+				
 				game.board.setBackground(new Background(image));
 				themes.mars.setDisable(true);
 				themes.earthButton.setDisable(false);
@@ -145,13 +171,37 @@ public class JavaFXTemplate extends Application {
 			public void handle(ActionEvent event) {
 				System.out.println("PRESSED Regular");
 				
+				
 				intro.board.setBackground(null);
 				game.board.setBackground(null);
+				intro.board.setStyle("-fx-background-color: #E9967A;");
+				game.board.setStyle("-fx-background-color: #E9967A;");
 				themes.mars.setDisable(false);
 				themes.earthButton.setDisable(false);
 				themes.regular.setDisable(true);
 				game.h1.setFill(Color.BLACK);
 				primaryStage.setScene(sceneMap.get("game"));
+				game.eventLogList.setStyle("-fx-padding: 10;" +
+		                "-fx-border-style: solid inside;" +
+		                "-fx-border-width: 5;" +
+		                "-fx-border-radius: 2;" +
+		                "-fx-border-color: green;");
+				game.menuList.setStyle("-fx-padding: 10;" +
+		                "-fx-border-style: solid inside;" +
+		                "-fx-border-width: 5;" +
+		                "-fx-border-radius: 2;" +
+		                "-fx-border-color: blue;");
+				game.gboard.setStyle("-fx-padding: 10;" +
+                "-fx-border-style: solid inside;" +
+                "-fx-border-width: 5;" +
+                "-fx-border-radius: 2;" +
+                "-fx-border-color: yellow;");
+				
+				game.board.setStyle("-fx-padding: 10;" +
+		                "-fx-border-style: solid inside;" +
+		                "-fx-border-width: 5;" +
+		                "-fx-border-radius: 2;" +
+		                "-fx-border-color: red;");
 			}
 		};
 		
@@ -208,10 +258,6 @@ public class JavaFXTemplate extends Application {
 		//themes.earthButton.setOnAction(earthHandle);
 		//themes.mars.setOnAction(marsHandle);
 		//themes.regular.setOnAction(regularHandle);
-		themes.back.setOnAction(e->{
-					//currentScene = introScene;
-					primaryStage.setScene(introScene);});
-		themes.startGame.setOnAction(e->primaryStage.setScene(gameScene));
 		//intro.earth.setOnAction(earthHandle);
 		intro.themes.setOnAction(e->primaryStage.setScene(themeScene));
 		game.themeBut.setOnAction(e->primaryStage.setScene(themeScene));

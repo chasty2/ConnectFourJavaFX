@@ -23,6 +23,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
@@ -184,6 +185,7 @@ public class GameScene
                 "-fx-border-width: 5;" +
                 "-fx-border-radius: 2;" +
                 "-fx-border-color: green;");
+		
 		eventLogList.setAlignment(Pos.TOP_CENTER);
 		return eventLogList;
 	}
@@ -228,8 +230,9 @@ public class GameScene
 		eventLog.setPrefWidth(200);
 		board.setCenter(gameBoard);
 		board.setRight(eventLog);
+		
 		board.setBottom(menu());
-		Scene gameScene = new Scene(board, 650,400);
+		Scene gameScene = new Scene(board, 650,400, Color.WHITESMOKE);
 		board.setStyle("-fx-padding: 10;" +
                 "-fx-border-style: solid inside;" +
                 "-fx-border-width: 5;" +

@@ -20,8 +20,6 @@ public class Themes {
 	Button regular;
 	Button earthButton;
 	Button mars;
-	Button back;
-	Button startGame;
 	Text t1;
 	public Themes() {
 		// TODO Auto-generated constructor stub
@@ -45,11 +43,6 @@ public class Themes {
 		Text h2 = new Text("Themes");
 		earth = new VBox(30, h2, regular, earthButton, mars);
 		earth.setBackground(new Background(image));
-		back = new Button("Home Screen");
-		startGame = new Button("Game Screen");
-		t1 = new Text();
-		bottom = new HBox(238, back, t1, startGame);
-		bottom.setBackground(new Background(image));
 		
 		h2.setStyle("-fx-font: 90px Tahoma;" +
 				"-fx-fill: linear-gradient(from 0% 60% to 150% 200%, repeat, blue 10%, yellow 50%);" +
@@ -68,7 +61,6 @@ public class Themes {
 		earth.setAlignment(Pos.CENTER);
 		regular.setDisable(true);
 		board.setCenter(earth);
-		board.setBottom(bottom);
 		Scene themeScene = new Scene(board, 650,400);
 		return themeScene;
 	}
