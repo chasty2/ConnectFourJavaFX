@@ -42,6 +42,7 @@ public class GameScene
 	Button earth;
 	Button mars;
 	Text h1;
+	GridPane gboard;
 	BorderPane board = new BorderPane();
 	HBox menuList;
 	ObservableList<Button> options;
@@ -114,7 +115,7 @@ public class GameScene
 	
 	public GridPane gameBoard() {
 
-		GridPane board = new GridPane();
+		gboard = new GridPane();
 		/*
 		 *  Populate gameBoard with XYButtons:
 		 *  
@@ -136,17 +137,17 @@ public class GameScene
 				// Link b to XYButton 'above' it, or null
 				b.setNext(prev);
 				// Add button to board
-				board.add(b, column, row);
+				gboard.add(b, column, row);
 				// Set prev to b for LL construction
 				prev = b;
 			}
 		}
-		board.setStyle("-fx-padding: 10;" +
+		gboard.setStyle("-fx-padding: 10;" +
                 "-fx-border-style: solid inside;" +
                 "-fx-border-width: 5;" +
                 "-fx-border-radius: 2;" +
                 "-fx-border-color: yellow;");
-		return board;
+		return gboard;
 	}
 	
 	public VBox eventLog() {

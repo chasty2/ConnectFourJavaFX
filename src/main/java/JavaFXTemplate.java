@@ -29,11 +29,6 @@ public class JavaFXTemplate extends Application {
 		launch(args);
 	}
 
-	public Scene createNewScene() {
-		GameScene g5 = new GameScene();
-		Scene s5 = g5.createGameScene();
-		return s5;
-	}
 	//feel free to remove the starter code from this method
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -82,6 +77,8 @@ public class JavaFXTemplate extends Application {
 				//primaryStage.setScene(s);
 			}
 		};
+		
+		
 		EventHandler<ActionEvent> marsHandle = new EventHandler<ActionEvent>() 
 		{
 			@Override
@@ -141,7 +138,9 @@ public class JavaFXTemplate extends Application {
 		g2.themes.setOnAction(e->primaryStage.setScene(s4));
 		g.themeBut.setOnAction(e->primaryStage.setScene(s4));
 		g.exitBut.setOnAction(e->primaryStage.close());
-		g.newGameBut.setOnAction(e->primaryStage.setScene(createNewScene()));
+		g.newGameBut.setOnAction(e->{
+			System.out.println("Pressed New Game");
+		});
 		g2.startGame.setOnAction(e->primaryStage.setScene(s));
 		g2.howToPlay.setOnAction(e->primaryStage.setScene(s3));
 		g2.exitGame.setOnAction(e->primaryStage.close());
