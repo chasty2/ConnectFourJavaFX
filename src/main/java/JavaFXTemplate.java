@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -23,7 +25,13 @@ import javafx.scene.layout.GridPane;
 
 public class JavaFXTemplate extends Application {
 	// private static Stage mainStage;
-	EventHandler<ActionEvent> myHandler;
+	HashMap<String, Scene> sceneMap; 
+	IntroScene intro;
+	GameScene game;
+	RulesScene rules;
+	Themes themes;
+	//Button newGameButton;
+	//EventHandler<ActionEvent> myHandler;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		launch(args);
@@ -34,15 +42,30 @@ public class JavaFXTemplate extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		
 		primaryStage.setTitle("Connect Four by Cody & Krish");
+		/*
+		// Declare Scenes from the classes that contain them
+		IntroScene intro = new IntroScene();
+		Scene introScene = intro.createIntroScene();
+		GameScene game = new GameScene();
+		Scene gameScene = game.createGameScene();
+		RulesScene rules = new RulesScene();
+		Scene rulesScene = rules.createRulesScene();
+		Themes themes = new Themes();
+		Scene themeScene = themes.createThemeScene();
+		public Scene currentScene = introScene;
+		*/
 		
-		IntroScene g2 = new IntroScene();
-		Scene s2 = g2.createIntroScene();
-		GameScene g = new GameScene();
-		Scene s = g.createGameScene();
-		RulesScene g3 = new RulesScene();
-		Scene s3 = g3.createRulesScene();
-		Themes t = new Themes();
-		Scene s4 = t.createThemeScene();
+		// Init Scene classes
+		IntroScene intro = new IntroScene();
+		GameScene game = new GameScene();
+		RulesScene rules = new RulesScene();
+		Themes themes = new Themes();
+		
+		// Create and populate sceneMap
+		sceneMap = new HashMap<String,Scene>();
+		sceneMap = newGame(primaryStage, sceneMap, intro, game, rules, themes);
+			
+		// Earth theme event handler
 		EventHandler<ActionEvent> earthHandle = new EventHandler<ActionEvent>() 
 		{
 			@Override
@@ -60,25 +83,26 @@ public class JavaFXTemplate extends Application {
 				        BackgroundPosition.CENTER,
 				        backgroundSize);
 				
-				g2.board.setBackground(new Background(image));
-				g.board.setBackground(new Background(image));
-				g.eventLogList.setStyle("-fx-padding: 10;" +
+				intro.board.setBackground(new Background(image));
+				game.board.setBackground(new Background(image));
+				game.eventLogList.setStyle("-fx-padding: 10;" +
 		                "-fx-border-style: solid inside;" +
 		                "-fx-border-width: 0;" +
 		                "-fx-border-radius: 0;");
-				g.menuList.setStyle("-fx-padding: 10;" +
+				game.menuList.setStyle("-fx-padding: 10;" +
 		                "-fx-border-style: solid inside;" +
 		                "-fx-border-width: 0;" +
 		                "-fx-border-radius: 0;");
-				t.earthButton.setDisable(true);
-				t.mars.setDisable(false);
-				t.regular.setDisable(false);
-				g.h1.setFill(Color.WHITE);
+				themes.earthButton.setDisable(true);
+				themes.mars.setDisable(false);
+				themes.regular.setDisable(false);
+				game.h1.setFill(Color.WHITE);
 				//primaryStage.setScene(s);
+				primaryStage.setScene(sceneMap.get("game"));
 			}
 		};
 		
-		
+		// Mars theme event handler
 		EventHandler<ActionEvent> marsHandle = new EventHandler<ActionEvent>() 
 		{
 			@Override
@@ -96,58 +120,118 @@ public class JavaFXTemplate extends Application {
 				        BackgroundPosition.CENTER,
 				        backgroundSize);
 				
-				g2.board.setBackground(new Background(image));
-				g.eventLogList.setStyle("-fx-padding: 10;" +
+				intro.board.setBackground(new Background(image));
+				game.eventLogList.setStyle("-fx-padding: 10;" +
 		                "-fx-border-style: solid inside;" +
 		                "-fx-border-width: 0;" +
 		                "-fx-border-radius: 0;");
-				g.menuList.setStyle("-fx-padding: 10;" +
+				game.menuList.setStyle("-fx-padding: 10;" +
 		                "-fx-border-style: solid inside;" +
 		                "-fx-border-width: 0;" +
 		                "-fx-border-radius: 0;");
-				g.board.setBackground(new Background(image));
-				t.mars.setDisable(true);
-				t.earthButton.setDisable(false);
-				t.regular.setDisable(false);
-				g.h1.setFill(Color.RED);
+				game.board.setBackground(new Background(image));
+				themes.mars.setDisable(true);
+				themes.earthButton.setDisable(false);
+				themes.regular.setDisable(false);
+				game.h1.setFill(Color.RED);
+				primaryStage.setScene(sceneMap.get("game"));
 			}
 		};
 		
+		// Regular theme event handler
 		EventHandler<ActionEvent> regularHandle = new EventHandler<ActionEvent>() 
 		{
 			@Override
 			public void handle(ActionEvent event) {
 				System.out.println("PRESSED Regular");
 				
-				g2.board.setBackground(null);
-				g.board.setBackground(null);
-				t.mars.setDisable(false);
-				t.earthButton.setDisable(false);
-				t.regular.setDisable(true);
-				g.h1.setFill(Color.BLACK);
+				intro.board.setBackground(null);
+				game.board.setBackground(null);
+				themes.mars.setDisable(false);
+				themes.earthButton.setDisable(false);
+				themes.regular.setDisable(true);
+				game.h1.setFill(Color.BLACK);
+				primaryStage.setScene(sceneMap.get("game"));
 			}
 		};
 		
-
-		t.earthButton.setOnAction(earthHandle);
-		t.mars.setOnAction(marsHandle);
-		t.regular.setOnAction(regularHandle);
-		t.back.setOnAction(e->primaryStage.setScene(s2));
-		t.startGame.setOnAction(e->primaryStage.setScene(s));
-		g2.earth.setOnAction(earthHandle);
-		g2.themes.setOnAction(e->primaryStage.setScene(s4));
-		g.themeBut.setOnAction(e->primaryStage.setScene(s4));
-		g.exitBut.setOnAction(e->primaryStage.close());
-		g.newGameBut.setOnAction(e->{
+		
+		themes.earthButton.setOnAction(earthHandle);
+		themes.mars.setOnAction(marsHandle);
+		themes.regular.setOnAction(regularHandle);
+		intro.earth.setOnAction(earthHandle);
+		/*
+		themes.back.setOnAction(e->{
+					currentScene = introScene;
+					primaryStage.setScene(currentScene);});
+		themes.startGame.setOnAction(e->primaryStage.setScene(gameScene));
+		intro.earth.setOnAction(earthHandle);
+		intro.themes.setOnAction(e->primaryStage.setScene(themeScene));
+		game.themeBut.setOnAction(e->primaryStage.setScene(themeScene));
+		game.exitBut.setOnAction(e->primaryStage.close());
+		/*game.newGameBut.setOnAction(e->{
 			System.out.println("Pressed New Game");
 		});
-		g2.startGame.setOnAction(e->primaryStage.setScene(s));
-		g2.howToPlay.setOnAction(e->primaryStage.setScene(s3));
-		g2.exitGame.setOnAction(e->primaryStage.close());
-		g3.back.setOnAction(e->primaryStage.setScene(s2));
-		g3.startGame.setOnAction(e->primaryStage.setScene(s));
-		primaryStage.setScene(s2);
+		game.newGameBut.setOnAction(e->primaryStage.setScene(createNewScene(primaryStage, themeScene)));
+		intro.startGame.setOnAction(e->primaryStage.setScene(gameScene));
+		intro.howToPlay.setOnAction(e->primaryStage.setScene(rulesScene));
+		intro.exitGame.setOnAction(e->primaryStage.close());
+		rules.back.setOnAction(e->primaryStage.setScene(introScene));
+		rules.startGame.setOnAction(e->primaryStage.setScene(gameScene));*/
+		primaryStage.setScene(sceneMap.get("intro"));
 		primaryStage.show();
 	}
-	// End JavaFXTemplate
-}	
+	
+	public Scene createNewScene(Stage primaryStage, Scene themeScene) {
+		GameScene game = new GameScene();
+		Scene gameScene = game.createGameScene();
+		game.themeBut.setOnAction(e->primaryStage.setScene(themeScene));
+		game.exitBut.setOnAction(e->primaryStage.close());
+		game.newGameBut.setOnAction(e->primaryStage.setScene(createNewScene(primaryStage, themeScene)));
+		return gameScene;
+	}
+	
+	public HashMap<String,Scene> newGame(Stage primaryStage, HashMap<String,Scene> sceneMap, 
+			IntroScene intro, GameScene game, RulesScene rules, Themes themes)
+	{
+		// Declare Scenes from the classes that contain them
+		
+		Scene introScene = intro.createIntroScene();
+		
+		Scene gameScene = game.createGameScene();
+		
+		Scene rulesScene = rules.createRulesScene();
+		
+		Scene themeScene = themes.createThemeScene();
+		//public Scene currentScene = introScene;
+		
+		//themes.earthButton.setOnAction(earthHandle);
+		//themes.mars.setOnAction(marsHandle);
+		//themes.regular.setOnAction(regularHandle);
+		themes.back.setOnAction(e->{
+					//currentScene = introScene;
+					primaryStage.setScene(introScene);});
+		themes.startGame.setOnAction(e->primaryStage.setScene(gameScene));
+		//intro.earth.setOnAction(earthHandle);
+		intro.themes.setOnAction(e->primaryStage.setScene(themeScene));
+		game.themeBut.setOnAction(e->primaryStage.setScene(themeScene));
+		game.exitBut.setOnAction(e->primaryStage.close());
+		/*game.newGameBut.setOnAction(e->{
+			System.out.println("Pressed New Game");
+		});*/
+		//game.newGameBut.setOnAction(e->primaryStage.setScene(createNewScene(primaryStage, themeScene)));
+		intro.startGame.setOnAction(e->primaryStage.setScene(gameScene));
+		intro.howToPlay.setOnAction(e->primaryStage.setScene(rulesScene));
+		intro.exitGame.setOnAction(e->primaryStage.close());
+		rules.back.setOnAction(e->primaryStage.setScene(introScene));
+		rules.startGame.setOnAction(e->primaryStage.setScene(gameScene));
+		
+		// Add scenes to sceneMap
+		sceneMap.put("intro", introScene);
+		sceneMap.put("game", gameScene);
+		sceneMap.put("rules", rulesScene);
+		sceneMap.put("themes", themeScene);
+		
+		return sceneMap;
+	}
+}	// End JavaFXTemplate

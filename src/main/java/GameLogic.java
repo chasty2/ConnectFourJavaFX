@@ -141,6 +141,31 @@ public class GameLogic
 	}
 	
 	/*
+	 * Clear gameBoard, unPress XYButtons, and reset game state
+	 */
+	public void newGame(GridPane board)
+	{
+		Integer[] lastMove = new Integer[2];
+		while(moveList.size() > 1)
+		{
+			lastMove = pruneLogs();
+		}
+		
+		/*
+		XYButton button = null;
+		for (Node node : board.getChildren())
+		{
+			button = (XYButton) node;
+			if (button.getPlayer() != 0)
+			{
+				button.unPress();
+			}
+		}*/
+		
+		currentPlayer = playerOne;
+	}
+	
+	/*
 	 *  checkWin recursive helper functions
 	 */
 	public boolean _checkWinLeft(GridPane board, Integer count, XYButton button)

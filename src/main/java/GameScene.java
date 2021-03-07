@@ -104,6 +104,30 @@ public class GameScene
 		}
 	};
 	
+	// NewGameBut handler
+	EventHandler<ActionEvent> newGameHandler = new EventHandler<ActionEvent>()
+	{
+		@Override
+		public void handle(ActionEvent event)
+		{
+			if (game.getMoveList().size() == 1)
+			{
+				System.out.println("Game is already new");
+			}
+			while(game.getMoveList().size() > 1)
+			{
+				Integer[] lastMove = game.pruneLogs();
+				XYButton lastButton = game.getMove(gameBoard, lastMove[0], lastMove[1]);
+				lastButton.unPress();
+				game.changeTurn();
+			}
+			
+			board.setCenter(gameBoard);
+			// Display logs
+			list.setItems(game.getMoveList());
+		}
+	};
+	
 	/*
 	 * Constructor, allows game to access gameBoard
 	 */
@@ -168,8 +192,12 @@ public class GameScene
 		revBut = new Button("Reverse");
 		revBut.setOnAction(revHandler);
 		
+		// Set in start
 		themeBut = new Button("Themes");
+		
 		newGameBut = new Button ("New Game");
+		newGameBut.setOnAction(newGameHandler);
+		
 		exitBut = new Button("Exit");
 		regular = new Button("Regular");
 		earth = new Button("Earth");
