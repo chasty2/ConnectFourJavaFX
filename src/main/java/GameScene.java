@@ -41,11 +41,14 @@ public class GameScene
 	Button regular;
 	Button earth;
 	Button mars;
+	Text h1;
 	BorderPane board = new BorderPane();
+	HBox menuList;
 	ObservableList<Button> options;
 	ListView <String> list;
 	ObservableList<String> moveList;
-	PauseTransition pause = new PauseTransition(Duration.seconds(2));
+	VBox eventLogList;
+	PauseTransition pause = new PauseTransition(Duration.seconds(1));
 	//XYButton event handler
 	EventHandler<ActionEvent> handler = new EventHandler<ActionEvent>() 
 	{
@@ -60,11 +63,11 @@ public class GameScene
 				button.pushButton(game.getCurrentPlayer());
 				if (game.checkWin(gameBoard, button) == true) 
 				{
-					Text h1 = new Text("Player " + game.getCurrentPlayer() + " WON");
-					h1.setStyle("-fx-font: 60px Tahoma;" +
+					Text h3 = new Text("Player " + game.getCurrentPlayer() + " WON");
+					h3.setStyle("-fx-font: 60px Tahoma;" +
 				"-fx-fill: linear-gradient(from 0% 60% to 150% 200%, repeat, blue 10%, yellow 50%);" +
 				"-fx-stroke: black;");
-					pause.setOnFinished(e->{board.setCenter(h1);});
+					pause.setOnFinished(e->{board.setCenter(h3);});
 					pause.play();
 					
 					
@@ -147,10 +150,10 @@ public class GameScene
 	}
 	
 	public VBox eventLog() {
-		Text h1 = new Text("Event Log");
+		h1 = new Text("Event Log");
 		h1.setTextAlignment(TextAlignment.CENTER);
 		list.setItems(moveList);
-		VBox eventLogList = new VBox(h1, list);
+		eventLogList = new VBox(h1, list);
 		eventLogList.setStyle("-fx-padding: 10;" +
                 "-fx-border-style: solid inside;" +
                 "-fx-border-width: 5;" +
@@ -178,7 +181,7 @@ public class GameScene
 		options.add(mars);
 		ComboBox<Button> comboBox = new ComboBox<>(options);
 		comboBox.setPromptText("Themes");
-		HBox menuList = new HBox(100,revBut,comboBox,newGameBut,exitBut);
+		menuList = new HBox(100,revBut, themeBut, newGameBut,exitBut);
 		menuList.setStyle("-fx-padding: 10;" +
                 "-fx-border-style: solid inside;" +
                 "-fx-border-width: 5;" +

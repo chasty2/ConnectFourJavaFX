@@ -40,6 +40,7 @@ public class IntroScene {
 	Button regular;
 	Button earth;
 	Button mars;
+	BorderPane board;
 	ObservableList<Button> options;
 	public HBox titleBox() {
 		Text h1 = new Text("Connect Four");
@@ -83,11 +84,10 @@ public class IntroScene {
 		options.add(regular);
 		options.add(earth);
 		options.add(mars);
-		ComboBox<Button> comboBox = new ComboBox<>(options);
-		comboBox.setPromptText("Themes");
+		
 		// startGame.setOnAction(e->j.changeScene(createIntroScene()));
 		// startGame.setOnAction(e->startGame.setStyle("-fx-background-color: green;"));
-		HBox menu = new HBox(100, comboBox, howToPlay, startGame, exitGame);
+		HBox menu = new HBox(100, themes, howToPlay, startGame, exitGame);
 		menu.setStyle("-fx-padding: 10;" +
                 "-fx-border-style: solid inside;" +
                 "-fx-border-width: 5;" +
@@ -98,7 +98,7 @@ public class IntroScene {
 	}
 	
 	public Scene createIntroScene() {
-		BorderPane board = new BorderPane();
+		board = new BorderPane();
 		board.setTop(titleBox());
 		board.setCenter(centerBox());
 		board.setBottom(menu());
