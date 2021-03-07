@@ -40,7 +40,8 @@ public class RulesScene {
                 "-fx-border-style: solid inside;" +	
                 "-fx-border-width: 5;" +
                 "-fx-border-radius: 2;" +
-                "-fx-border-color: blue;");
+                "-fx-border-color: blue;" +
+                "-fx-background-color: beige");
 		h1.setStyle("-fx-font: 80px Tahoma;" +
 					"-fx-fill: linear-gradient(from 0% 60% to 150% 200%, red, blue 40%, green 5%);" +
 					"-fx-stroke: black;");
@@ -60,7 +61,8 @@ public class RulesScene {
                 "-fx-border-style: solid inside;" +
                 "-fx-border-width: 5;" +
                 "-fx-border-radius: 2;" +
-                "-fx-border-color: red;");
+                "-fx-border-color: red;" +
+                "-fx-background-color: beige");
 		menu.setAlignment(Pos.CENTER);
 		return menu;
 	}
@@ -87,7 +89,8 @@ public class RulesScene {
                 "-fx-border-style: solid inside;" +
                 "-fx-border-width: 5;" +
                 "-fx-border-radius: 2;" +
-                "-fx-border-color: yellow;");
+                "-fx-border-color: yellow;" +
+                "-fx-background-color: beige");
 		return test;
 	}
 	
@@ -96,7 +99,7 @@ public class RulesScene {
 		rules.setTop(RulesBox());
 		rules.setCenter(rulesList());
 		rules.setBottom(menu());
-		Scene rulesScene = new Scene(rules, 650, 400);
+		Scene rulesScene = new Scene(rules, 750, 500);
 		return rulesScene;
 	}
 }

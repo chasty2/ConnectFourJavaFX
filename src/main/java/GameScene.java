@@ -51,14 +51,15 @@ public class GameScene
 	ObservableList<String> moveList;
 	VBox eventLogList;
 	PauseTransition pause = new PauseTransition(Duration.seconds(1));
+	
 	//XYButton event handler
-	EventHandler<ActionEvent> handler = new EventHandler<ActionEvent>() 
+	EventHandler<ActionEvent> moveHandler = new EventHandler<ActionEvent>() 
 	{
 		@Override
 		public void handle(ActionEvent event) {
 			// Get info on button pressed
 			XYButton button = (XYButton) event.getSource();
-			game.updateLogs(button);
+			game.addMoveToLogs(button);
 			// Press if valid move
 			if (button.getValid() == true)
 			{
@@ -82,7 +83,13 @@ public class GameScene
 		}
 	};
 	
-	// Reverse Button handler
+	/*
+	 *  Reverse Button handler
+	 *  
+	 *  Extract last valid move from logs while reverting logs to the
+	 *  state before this. unPress() button at location of last valid move
+	 *  
+	 */
 	EventHandler<ActionEvent> revHandler = new EventHandler<ActionEvent>()
 	{
 		@Override
@@ -105,7 +112,13 @@ public class GameScene
 		}
 	};
 	
-	// NewGameBut handler
+	/*
+	 *  NewGameBut handler
+	 *  
+	 *  Clears logs, calling unPress() on each button pressed, then
+	 *  displays a fresh gameBoard
+	 *  
+	 */
 	EventHandler<ActionEvent> newGameHandler = new EventHandler<ActionEvent>()
 	{
 		@Override
@@ -122,7 +135,7 @@ public class GameScene
 				lastButton.unPress();
 				game.changeTurn();
 			}
-			
+			// 
 			board.setCenter(gameBoard);
 			// Display logs
 			list.setItems(game.getMoveList());
@@ -158,7 +171,7 @@ public class GameScene
 				XYButton b = new XYButton(row, column);
 				b.setPrefSize(50, 50);
 				b.setStyle("-fx-background-color: grey;");
-				b.setOnAction(handler);			
+				b.setOnAction(moveHandler);			
 				// Link b to XYButton 'above' it, or null
 				b.setNext(prev);
 				// Add button to board
@@ -171,7 +184,8 @@ public class GameScene
                 "-fx-border-style: solid inside;" +
                 "-fx-border-width: 5;" +
                 "-fx-border-radius: 2;" +
-                "-fx-border-color: yellow;");
+                "-fx-border-color: yellow;" +
+                "-fx-background-color: beige");
 		return gboard;
 	}
 	
@@ -184,40 +198,30 @@ public class GameScene
                 "-fx-border-style: solid inside;" +
                 "-fx-border-width: 5;" +
                 "-fx-border-radius: 2;" +
-                "-fx-border-color: green;");
+                "-fx-border-color: green;" +
+                "-fx-background-color: beige");
 		
 		eventLogList.setAlignment(Pos.TOP_CENTER);
 		return eventLogList;
 	}
 	
 	public HBox menu() {
+		// themeBut and exitBut handlers set in start()
+		themeBut = new Button("Themes");
+		exitBut = new Button("Exit");
+		
 		revBut = new Button("Reverse");
 		revBut.setOnAction(revHandler);
-		
-		// Set in start
-		themeBut = new Button("Themes");
-		
 		newGameBut = new Button ("New Game");
 		newGameBut.setOnAction(newGameHandler);
-		
-		exitBut = new Button("Exit");
-		regular = new Button("Regular");
-		earth = new Button("Earth");
-		mars = new Button("Mars");
-		regular.setDisable(true);
-		// menu Hbox
-		options = FXCollections.observableArrayList();
-		options.add(regular);
-		options.add(earth);
-		options.add(mars);
-		ComboBox<Button> comboBox = new ComboBox<>(options);
-		comboBox.setPromptText("Themes");
+
 		menuList = new HBox(100,revBut, themeBut, newGameBut,exitBut);
 		menuList.setStyle("-fx-padding: 10;" +
                 "-fx-border-style: solid inside;" +
                 "-fx-border-width: 5;" +
                 "-fx-border-radius: 2;" +
-                "-fx-border-color: blue;");
+                "-fx-border-color: blue;" +
+                "-fx-background-color: beige");
 		return menuList;
 	}
 	
@@ -230,14 +234,14 @@ public class GameScene
 		eventLog.setPrefWidth(200);
 		board.setCenter(gameBoard);
 		board.setRight(eventLog);
-		
 		board.setBottom(menu());
 		Scene gameScene = new Scene(board, 650,400, Color.WHITESMOKE);
 		board.setStyle("-fx-padding: 10;" +
                 "-fx-border-style: solid inside;" +
                 "-fx-border-width: 5;" +
                 "-fx-border-radius: 2;" +
-                "-fx-border-color: red;");
+                "-fx-border-color: red;" +
+                "-fx-background-color: beige");
 		return gameScene;
 	}
 	

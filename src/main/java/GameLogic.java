@@ -78,7 +78,7 @@ public class GameLogic
 	 *  Adds move to log, returns reversed observable list to gameScene
 	 *  Updates the game's event logs as if they were a stack of Strings
 	 */
-	public void updateLogs(XYButton button)
+	public void addMoveToLogs(XYButton button)
 	{
 		if (button.getValid() == true)
 		{
@@ -141,31 +141,6 @@ public class GameLogic
 	}
 	
 	/*
-	 * Clear gameBoard, unPress XYButtons, and reset game state
-	 */
-	public void newGame(GridPane board)
-	{
-		Integer[] lastMove = new Integer[2];
-		while(moveList.size() > 1)
-		{
-			lastMove = pruneLogs();
-		}
-		
-		/*
-		XYButton button = null;
-		for (Node node : board.getChildren())
-		{
-			button = (XYButton) node;
-			if (button.getPlayer() != 0)
-			{
-				button.unPress();
-			}
-		}*/
-		
-		currentPlayer = playerOne;
-	}
-	
-	/*
 	 *  checkWin recursive helper functions
 	 */
 	public boolean _checkWinLeft(GridPane board, Integer count, XYButton button)
@@ -195,8 +170,8 @@ public class GameLogic
 		else if (button.getPlayer() == getCurrentPlayer())
 		{
 			count++;
-			XYButton leftButton = this.getMove(board, button.getRow(), button.getColumn()-1);
-			return _checkWinLeft(board, count, leftButton);
+			XYButton nextButton = this.getMove(board, button.getRow(), button.getColumn()-1);
+			return _checkWinLeft(board, count, nextButton);
 		}
 		return false;
 	}
@@ -228,8 +203,8 @@ public class GameLogic
 		else if (button.getPlayer() == getCurrentPlayer())
 		{
 			count++;
-			XYButton rightButton = this.getMove(board, button.getRow(), button.getColumn()+1);
-			return _checkWinRight(board, count, rightButton);
+			XYButton nextButton = this.getMove(board, button.getRow(), button.getColumn()+1);
+			return _checkWinRight(board, count, nextButton);
 		}
 		return false;
 	}
@@ -261,8 +236,8 @@ public class GameLogic
 		else if (button.getPlayer() == getCurrentPlayer())
 		{
 			count++;
-			XYButton upButton = this.getMove(board, button.getRow()-1, button.getColumn());
-			return _checkWinUp(board, count, upButton);
+			XYButton nextButton = this.getMove(board, button.getRow()-1, button.getColumn());
+			return _checkWinUp(board, count, nextButton);
 		}
 		return false;
 	}
@@ -294,8 +269,8 @@ public class GameLogic
 		else if (button.getPlayer() == getCurrentPlayer())
 		{
 			count++;
-			XYButton downButton = this.getMove(board, button.getRow()+1, button.getColumn());
-			return _checkWinDown(board, count, downButton);
+			XYButton nextButton = this.getMove(board, button.getRow()+1, button.getColumn());
+			return _checkWinDown(board, count, nextButton);
 		}
 		return false;
 	}
@@ -327,8 +302,8 @@ public class GameLogic
 		else if (button.getPlayer() == getCurrentPlayer())
 		{
 			count++;
-			XYButton nwButton = this.getMove(board, button.getRow()-1, button.getColumn()-1);
-			return _checkWinNW(board, count, nwButton);
+			XYButton nextButton = this.getMove(board, button.getRow()-1, button.getColumn()-1);
+			return _checkWinNW(board, count, nextButton);
 		}
 		return false;
 	}
@@ -360,8 +335,8 @@ public class GameLogic
 		else if (button.getPlayer() == getCurrentPlayer())
 		{
 			count++;
-			XYButton downButton = this.getMove(board, button.getRow()-1, button.getColumn()+1);
-			return _checkWinNE(board, count, downButton);
+			XYButton nextButton = this.getMove(board, button.getRow()-1, button.getColumn()+1);
+			return _checkWinNE(board, count, nextButton);
 		}
 		return false;
 	}
@@ -393,8 +368,8 @@ public class GameLogic
 		else if (button.getPlayer() == getCurrentPlayer())
 		{
 			count++;
-			XYButton downButton = this.getMove(board, button.getRow()+1, button.getColumn()-1);
-			return _checkWinSW(board, count, downButton);
+			XYButton nextButton = this.getMove(board, button.getRow()+1, button.getColumn()-1);
+			return _checkWinSW(board, count, nextButton);
 		}
 		return false;
 	}
@@ -426,8 +401,8 @@ public class GameLogic
 		else if (button.getPlayer() == getCurrentPlayer())
 		{
 			count++;
-			XYButton downButton = this.getMove(board, button.getRow()+1, button.getColumn()+1);
-			return _checkWinSE(board, count, downButton);
+			XYButton nextButton = this.getMove(board, button.getRow()+1, button.getColumn()+1);
+			return _checkWinSE(board, count, nextButton);
 		}
 		return false;
 	}

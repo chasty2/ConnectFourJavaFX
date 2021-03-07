@@ -2,8 +2,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.function.Function;
 
-import com.sun.prism.paint.Color;
-
+//import com.sun.prism.paint.Color;
+import javafx.scene.paint.Color;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -38,7 +38,7 @@ public class IntroScene {
 	Button startGame;
 	Button exitGame;
 	Button regular;
-	Button earth;
+	//Button earth;
 	Button mars;
 	BorderPane board;
 	ObservableList<Button> options;
@@ -51,7 +51,8 @@ public class IntroScene {
                 "-fx-border-style: solid inside;" +	
                 "-fx-border-width: 5;" +
                 "-fx-border-radius: 2;" +
-                "-fx-border-color: green;");
+                "-fx-border-color: green;" +
+                "-fx-background-color: beige");
 		h1.setStyle("-fx-font: 100px Tahoma;" +
 					"-fx-fill: linear-gradient(from 0% 60% to 150% 200%, repeat, yellow 10%, red 50%);" +
 					"-fx-stroke: black;");
@@ -64,7 +65,8 @@ public class IntroScene {
 		HBox centBox = new HBox(h2);
 		h2.setStyle("-fx-font: 45px Tahoma;" +
 				"-fx-fill: linear-gradient(from 0% 60% to 150% 200%, repeat, blue 10%, yellow 50%);" +
-				"-fx-stroke: black;");
+				"-fx-stroke: black;" +
+				"-fx-background-color: beige");
 		centBox.setAlignment(Pos.CENTER);
 		return centBox;
 	}
@@ -72,18 +74,18 @@ public class IntroScene {
 	public HBox menu() {
 		themes = new Button("Themes");
 		howToPlay = new Button("How to Play");
-		startGame = new Button("Stat Game");
+		startGame = new Button("Start Game");
 		exitGame = new Button("Exit");
-		regular = new Button("Regular");
-		regular.setDisable(true);
-		earth = new Button("Earth");
-		mars = new Button("Mars");
+		//regular = new Button("Regular");
+		//regular.setDisable(true);
+		//earth = new Button("Earth");
+		//mars = new Button("Mars");
 		
-		options = FXCollections.observableArrayList();
+		//options = FXCollections.observableArrayList();
 		
-		options.add(regular);
-		options.add(earth);
-		options.add(mars);
+		//options.add(regular);
+		//options.add(earth);
+		//options.add(mars);
 		
 		// startGame.setOnAction(e->j.changeScene(createIntroScene()));
 		// startGame.setOnAction(e->startGame.setStyle("-fx-background-color: green;"));
@@ -92,17 +94,19 @@ public class IntroScene {
                 "-fx-border-style: solid inside;" +
                 "-fx-border-width: 5;" +
                 "-fx-border-radius: 2;" +
-                "-fx-border-color: red;");
+                "-fx-border-color: red;" +
+                "-fx-background-color: beige");
 		menu.setAlignment(Pos.CENTER);
 		return menu;
 	}
 	
 	public Scene createIntroScene() {
 		board = new BorderPane();
+		board.setStyle("-fx-background-color: beige");
 		board.setTop(titleBox());
 		board.setCenter(centerBox());
 		board.setBottom(menu());
-		Scene introScene = new Scene(board, 650,400);
+		Scene introScene = new Scene(board, 750,500, Color.WHITESMOKE);
 		return introScene;
 	}
 	

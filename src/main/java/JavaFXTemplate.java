@@ -42,18 +42,6 @@ public class JavaFXTemplate extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		
 		primaryStage.setTitle("Connect Four by Cody & Krish");
-		/*
-		// Declare Scenes from the classes that contain them
-		IntroScene intro = new IntroScene();
-		Scene introScene = intro.createIntroScene();
-		GameScene game = new GameScene();
-		Scene gameScene = game.createGameScene();
-		RulesScene rules = new RulesScene();
-		Scene rulesScene = rules.createRulesScene();
-		Themes themes = new Themes();
-		Scene themeScene = themes.createThemeScene();
-		public Scene currentScene = introScene;
-		*/
 		
 		// Init Scene classes
 		IntroScene intro = new IntroScene();
@@ -154,7 +142,6 @@ public class JavaFXTemplate extends Application {
 		                "-fx-border-radius: 2;" +
 		                "-fx-border-color: brown;");
 				
-				
 				game.board.setBackground(new Background(image));
 				themes.mars.setDisable(true);
 				themes.earthButton.setDisable(false);
@@ -168,107 +155,69 @@ public class JavaFXTemplate extends Application {
 		EventHandler<ActionEvent> regularHandle = new EventHandler<ActionEvent>() 
 		{
 			@Override
-			public void handle(ActionEvent event) {
-				System.out.println("PRESSED Regular");
-				
-				
+			public void handle(ActionEvent event) {				
 				intro.board.setBackground(null);
 				game.board.setBackground(null);
-				intro.board.setStyle("-fx-background-color: #E9967A;");
-				game.board.setStyle("-fx-background-color: #E9967A;");
 				themes.mars.setDisable(false);
 				themes.earthButton.setDisable(false);
 				themes.regular.setDisable(true);
 				game.h1.setFill(Color.BLACK);
-				primaryStage.setScene(sceneMap.get("game"));
+				
 				game.eventLogList.setStyle("-fx-padding: 10;" +
 		                "-fx-border-style: solid inside;" +
 		                "-fx-border-width: 5;" +
 		                "-fx-border-radius: 2;" +
-		                "-fx-border-color: green;");
+		                "-fx-border-color: green;" +
+		                "-fx-background-color: beige");
 				game.menuList.setStyle("-fx-padding: 10;" +
 		                "-fx-border-style: solid inside;" +
 		                "-fx-border-width: 5;" +
 		                "-fx-border-radius: 2;" +
-		                "-fx-border-color: blue;");
+		                "-fx-border-color: blue;" +
+		                "-fx-background-color: beige");
 				game.gboard.setStyle("-fx-padding: 10;" +
-                "-fx-border-style: solid inside;" +
-                "-fx-border-width: 5;" +
-                "-fx-border-radius: 2;" +
-                "-fx-border-color: yellow;");
+						"-fx-border-style: solid inside;" +
+						"-fx-border-width: 5;" +
+						"-fx-border-radius: 2;" +
+						"-fx-border-color: yellow;" +
+						"-fx-background-color: beige");
 				
 				game.board.setStyle("-fx-padding: 10;" +
 		                "-fx-border-style: solid inside;" +
 		                "-fx-border-width: 5;" +
 		                "-fx-border-radius: 2;" +
-		                "-fx-border-color: red;");
+		                "-fx-border-color: red;" +
+		                "-fx-background-color: beige");
+				primaryStage.setScene(sceneMap.get("game"));
 			}
 		};
 		
-		
+		// Set button actions involving theme changes
 		themes.earthButton.setOnAction(earthHandle);
 		themes.mars.setOnAction(marsHandle);
 		themes.regular.setOnAction(regularHandle);
-		intro.earth.setOnAction(earthHandle);
-		/*
-		themes.back.setOnAction(e->{
-					currentScene = introScene;
-					primaryStage.setScene(currentScene);});
-		themes.startGame.setOnAction(e->primaryStage.setScene(gameScene));
-		intro.earth.setOnAction(earthHandle);
-		intro.themes.setOnAction(e->primaryStage.setScene(themeScene));
-		game.themeBut.setOnAction(e->primaryStage.setScene(themeScene));
-		game.exitBut.setOnAction(e->primaryStage.close());
-		/*game.newGameBut.setOnAction(e->{
-			System.out.println("Pressed New Game");
-		});
-		game.newGameBut.setOnAction(e->primaryStage.setScene(createNewScene(primaryStage, themeScene)));
-		intro.startGame.setOnAction(e->primaryStage.setScene(gameScene));
-		intro.howToPlay.setOnAction(e->primaryStage.setScene(rulesScene));
-		intro.exitGame.setOnAction(e->primaryStage.close());
-		rules.back.setOnAction(e->primaryStage.setScene(introScene));
-		rules.startGame.setOnAction(e->primaryStage.setScene(gameScene));*/
+		
+		// Set stage
 		primaryStage.setScene(sceneMap.get("intro"));
 		primaryStage.show();
-	}
-	
-	public Scene createNewScene(Stage primaryStage, Scene themeScene) {
-		GameScene game = new GameScene();
-		Scene gameScene = game.createGameScene();
-		game.themeBut.setOnAction(e->primaryStage.setScene(themeScene));
-		game.exitBut.setOnAction(e->primaryStage.close());
-		game.newGameBut.setOnAction(e->primaryStage.setScene(createNewScene(primaryStage, themeScene)));
-		return gameScene;
 	}
 	
 	public HashMap<String,Scene> newGame(Stage primaryStage, HashMap<String,Scene> sceneMap, 
 			IntroScene intro, GameScene game, RulesScene rules, Themes themes)
 	{
-		// Declare Scenes from the classes that contain them
-		
-		Scene introScene = intro.createIntroScene();
-		
+		// Init Scenes from the classes that contain them
+		Scene introScene = intro.createIntroScene();	
 		Scene gameScene = game.createGameScene();
-		
 		Scene rulesScene = rules.createRulesScene();
-		
 		Scene themeScene = themes.createThemeScene();
-		//public Scene currentScene = introScene;
-		
-		//themes.earthButton.setOnAction(earthHandle);
-		//themes.mars.setOnAction(marsHandle);
-		//themes.regular.setOnAction(regularHandle);
-		//intro.earth.setOnAction(earthHandle);
+
+		// Set button actions that involve changing scenes
 		intro.themes.setOnAction(e->primaryStage.setScene(themeScene));
-		game.themeBut.setOnAction(e->primaryStage.setScene(themeScene));
-		game.exitBut.setOnAction(e->primaryStage.close());
-		/*game.newGameBut.setOnAction(e->{
-			System.out.println("Pressed New Game");
-		});*/
-		//game.newGameBut.setOnAction(e->primaryStage.setScene(createNewScene(primaryStage, themeScene)));
 		intro.startGame.setOnAction(e->primaryStage.setScene(gameScene));
 		intro.howToPlay.setOnAction(e->primaryStage.setScene(rulesScene));
 		intro.exitGame.setOnAction(e->primaryStage.close());
+		game.themeBut.setOnAction(e->primaryStage.setScene(themeScene));
+		game.exitBut.setOnAction(e->primaryStage.close());
 		rules.back.setOnAction(e->primaryStage.setScene(introScene));
 		rules.startGame.setOnAction(e->primaryStage.setScene(gameScene));
 		
