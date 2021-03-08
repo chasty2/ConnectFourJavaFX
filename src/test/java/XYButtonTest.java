@@ -25,8 +25,8 @@ class XYButtonTest
 	  }
 	}
 
-	@BeforeEach
-	public void initJFX() throws Exception {
+	@BeforeAll
+	public static void initJFX() throws Exception {
 	  Thread t = new Thread("JavaFX Application Thread") {
 	     public void run() {
 	        Application.launch(NonApp.class);
@@ -34,15 +34,17 @@ class XYButtonTest
 	  };
 	  t.setDaemon(true);
 	  t.start();
+	  // Init javafx toolkit
+	  com.sun.javafx.application.PlatformImpl.startup(() -> {});
 	}
 	
 	@BeforeEach
 	void setup()
 	{
-		// Init javafx toolkit
-		com.sun.javafx.application.PlatformImpl.startup(() -> {});
-		// Init two XYButtons
+		
+		// Inits as invalid
 		button1 = new XYButton(0,0);
+		// Inits as valid
 		button2 = new XYButton(5,5);
 		// Link button1 to button2
 		button1.setNext(button2);
@@ -181,5 +183,53 @@ class XYButtonTest
 		button2.setNext(button1);
 		assertEquals(button1, button2.getNext(),"button2.setNext() failed");
 	}
-
+	
+	/*
+	 * Test button Press/unPress logic
+	 * 
+	 * Note that button validity is checked in button event handler, and
+	 * is not tested here
+	 */
+	@Test
+	void testPressButtonPlayerOne()
+	{
+		button1.press(1);
+		assertFalse(button1.getValid(), 
+				"button1 not set to invalid on press");
+		assertTrue(button1.getNext().getValid(),
+				"button1 did not set button2 to valid on press");
+		assertEquals("-fx-background-color: red;", button1.getStyle(),
+				"button1.press() set invalid color");
+		assertEquals(1, button1.getPlayer(),
+				"button1.press() set invalid player");
+	}
+	
+	@Test
+	void testPressButtonPlayerTwo()
+	{
+		button1.press(2);
+		assertFalse(button1.getValid(), 
+				"button1 not set to invalid on press");
+		assertTrue(button1.getNext().getValid(),
+				"button1 did not set button2 to valid on press");
+		assertEquals("-fx-background-color: blue;", button1.getStyle(),
+				"button1.press() set invalid color");
+		assertEquals(2, button1.getPlayer(),
+				"button1.press() set invalid player");
+	}
+	
+	@Test
+	void testUnPressButton()
+	{
+		button1.press(1);
+		button1.unPress();
+		assertTrue(button1.getValid(), 
+				"button1 not set to valid on unPress()");
+		assertFalse(button1.getNext().getValid(),
+				"button1 did not set button2 to false on unPress()");
+		assertEquals("-fx-background-color: grey;", button1.getStyle(),
+				"button1.unPress() set invalid color");
+		assertEquals(0, button1.getPlayer(),
+				"button1.unPress() did not unset player");
+	}
 }
