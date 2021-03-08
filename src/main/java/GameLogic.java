@@ -132,7 +132,6 @@ public class GameLogic
 			{
 				lastMove[0] = Integer.parseInt(matchMove.group(1));
 				lastMove[1] = Integer.parseInt(matchMove.group(2));
-				System.out.println("Found " + lastMove[0] + ", " + lastMove[1]);
 				break;
 			}
 		}
@@ -257,7 +256,7 @@ public class GameLogic
 		{
 			return false;
 		}
-		// Reached upper boundary of grid
+		// Reached lower boundary of grid
 		else if (button.getRow() == 5)
 		{
 			return false;
@@ -290,7 +289,7 @@ public class GameLogic
 		{
 			return false;
 		}
-		// Reached upper boundary of grid
+		// Reached nw boundaries of grid
 		else if (button.getRow() == 0 || button.getColumn() == 0)
 		{
 			return false;
@@ -323,7 +322,7 @@ public class GameLogic
 		{
 			return false;
 		}
-		// Reached upper boundary of grid
+		// Reached northeast boundaries of grid
 		else if (button.getRow() == 0 || button.getColumn() == 6)
 		{
 			return false;
@@ -356,7 +355,7 @@ public class GameLogic
 		{
 			return false;
 		}
-		// Reached lower boundary of grid
+		// Reached southwest boundaries of grid
 		else if (button.getRow() == 5 || button.getColumn() == 0)
 		{
 			return false;
@@ -389,7 +388,7 @@ public class GameLogic
 		{
 			return false;
 		}
-		// Reached lower boundary of grid
+		// Reached southeast boundaries of grid
 		else if (button.getRow() == 5 || button.getColumn() == 6)
 		{
 			return false;
@@ -426,6 +425,52 @@ public class GameLogic
 			return true;
 		}
 		
+		return false;
+	}
+	
+	// checkTie() recursive helper function. Checks to see if the grid is filled
+	public boolean _checkTie(GridPane board, Integer count, XYButton button)
+	{
+		/*
+		 *  Base Cases
+		 */
+		// Grid is full, tie game
+		if (count == 7 && button.getPlayer() != 0)
+		{
+			return true;
+		}
+		// Unpressed button
+		else if (button.getPlayer() == 0)
+		{
+			return false;
+		}
+		// Reached grid boundaries. Shouldn't ever run
+		else if (button.getRow() == 0 && button.getColumn() == 6)
+		{
+			return false;
+		}
+		/*
+		 * Recursive Case
+		 */
+		// Continue checking for full grid from NW to NE corner of board
+		else if (button.getPlayer() != 0)
+		{
+			count++;
+			XYButton nextButton = this.getMove(board, button.getRow(), button.getColumn()+1);
+			return _checkTie(board, count, nextButton);
+		}
+		return false;
+	}
+	
+	/*
+	 *  Recursively check top row to see if all buttons have been pressed
+	 */
+	public boolean checkTie(GridPane board)
+	{
+		if (_checkTie(board, 1, getMove(board,0,0)))
+		{
+			return true;
+		}
 		return false;
 	}
 

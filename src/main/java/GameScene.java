@@ -50,7 +50,7 @@ public class GameScene
 	ListView <String> list;
 	ObservableList<String> moveList;
 	VBox eventLogList;
-	PauseTransition pause = new PauseTransition(Duration.seconds(1));
+	PauseTransition pause = new PauseTransition(Duration.seconds(3));
 	
 	//XYButton event handler
 	EventHandler<ActionEvent> moveHandler = new EventHandler<ActionEvent>() 
@@ -76,6 +76,16 @@ public class GameScene
 					
 					System.out.println("Player " + game.getCurrentPlayer() + " WON");
 				}
+				else if (game.checkTie(gameBoard) == true)
+				{
+					System.out.println("Tie game");
+					Text h3 = new Text("TIE GAME!!");
+					h3.setStyle("-fx-font: 60px Tahoma;" +
+				"-fx-fill: linear-gradient(from 0% 60% to 150% 200%, repeat, blue 10%, yellow 50%);" +
+				"-fx-stroke: black;");
+					pause.setOnFinished(e->{board.setCenter(h3);});
+					pause.play();
+				}
 				game.changeTurn();
 			}
 			// Display logs
@@ -95,7 +105,6 @@ public class GameScene
 		@Override
 		public void handle(ActionEvent event)
 		{
-			System.out.println(game.getMoveList().size());
 			if (game.getMoveList().size() == 1)
 			{
 				System.out.println("No move to reverse");
