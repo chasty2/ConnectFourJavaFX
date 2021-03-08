@@ -139,6 +139,52 @@ public class GameLogic
 		return lastMove;
 	}
 	
+	// Uses coordinates from pruneLogs() to undo the last move made
+	public void reverseMove(GridPane board)
+	{
+		Integer[] lastMove = pruneLogs();
+		XYButton lastButton = getMove(board, lastMove[0], lastMove[1]);
+		lastButton.unPress();
+		changeTurn();
+	}
+	
+	// Uses reverseMove() to reset the game
+	public void clearBoard(GridPane board)
+	{
+		Integer[] lastMove;
+		XYButton lastButton;
+		
+		while(getMoveList().size() > 1)
+		{
+			lastMove = pruneLogs();
+			lastButton = getMove(board, lastMove[0], lastMove[1]);
+			lastButton.unPress();
+			changeTurn();
+		}
+	}
+	
+	// Disables all buttons to prevent moves after a win condition is reached
+	public void disableButtons(GridPane board)
+	{
+		XYButton button = null;
+		for (Node node : board.getChildren())
+		{
+			button = (XYButton) node;
+			button.setDisable(true);
+		}
+	}
+	
+	// Re-enables all buttons on call to new game
+	public void enableButtons(GridPane board)
+	{
+		XYButton button = null;
+		for (Node node : board.getChildren())
+		{
+			button = (XYButton) node;
+			button.setDisable(false);
+		}
+	}
+	
 	/*
 	 *  checkWin recursive helper functions
 	 */

@@ -66,6 +66,7 @@ public class GameScene
 				button.pushButton(game.getCurrentPlayer());
 				if (game.checkWin(gameBoard, button) == true) 
 				{
+					game.disableButtons(gameBoard);
 					Text h3 = new Text("Player " + game.getCurrentPlayer() + " WON");
 					h3.setStyle("-fx-font: 60px Tahoma;" +
 				"-fx-fill: linear-gradient(from 0% 60% to 150% 200%, repeat, blue 10%, yellow 50%);" +
@@ -73,18 +74,19 @@ public class GameScene
 					pause.setOnFinished(e->{board.setCenter(h3);});
 					pause.play();
 					
-					
 					System.out.println("Player " + game.getCurrentPlayer() + " WON");
 				}
 				else if (game.checkTie(gameBoard) == true)
 				{
-					System.out.println("Tie game");
+					game.disableButtons(gameBoard);
 					Text h3 = new Text("TIE GAME!!");
 					h3.setStyle("-fx-font: 60px Tahoma;" +
 				"-fx-fill: linear-gradient(from 0% 60% to 150% 200%, repeat, blue 10%, yellow 50%);" +
 				"-fx-stroke: black;");
 					pause.setOnFinished(e->{board.setCenter(h3);});
 					pause.play();
+					
+					System.out.println("Tie game");
 				}
 				game.changeTurn();
 			}
@@ -93,13 +95,7 @@ public class GameScene
 		}
 	};
 	
-	/*
-	 *  Reverse Button handler
-	 *  
-	 *  Extract last valid move from logs while reverting logs to the
-	 *  state before this. unPress() button at location of last valid move
-	 *  
-	 */
+	// Reverse button handler
 	EventHandler<ActionEvent> revHandler = new EventHandler<ActionEvent>()
 	{
 		@Override
@@ -111,23 +107,14 @@ public class GameScene
 			}
 			else
 			{
-				Integer[] lastMove = game.pruneLogs();
-				XYButton lastButton = game.getMove(gameBoard, lastMove[0], lastMove[1]);
-				lastButton.unPress();
-				game.changeTurn();
+				game.reverseMove(gameBoard);
 			}
 			// Display logs
 			list.setItems(game.getMoveList());
 		}
 	};
 	
-	/*
-	 *  NewGameBut handler
-	 *  
-	 *  Clears logs, calling unPress() on each button pressed, then
-	 *  displays a fresh gameBoard
-	 *  
-	 */
+	// NewGameBut handler
 	EventHandler<ActionEvent> newGameHandler = new EventHandler<ActionEvent>()
 	{
 		@Override
@@ -137,14 +124,12 @@ public class GameScene
 			{
 				System.out.println("Game is already new");
 			}
-			while(game.getMoveList().size() > 1)
+			else
 			{
-				Integer[] lastMove = game.pruneLogs();
-				XYButton lastButton = game.getMove(gameBoard, lastMove[0], lastMove[1]);
-				lastButton.unPress();
-				game.changeTurn();
+				game.clearBoard(gameBoard);
 			}
-			// 
+			// Enable buttons and display fresh board
+			game.enableButtons(gameBoard);
 			board.setCenter(gameBoard);
 			// Display logs
 			list.setItems(game.getMoveList());
