@@ -48,6 +48,9 @@ public class JavaFXTemplate extends Application {
 		GameScene game = new GameScene();
 		RulesScene rules = new RulesScene();
 		Themes themes = new Themes();
+		TieGameScene tie = new TieGameScene();
+		PlayerOneScene oneWin = new PlayerOneScene();
+		PlayerTwoScene twoWin = new PlayerTwoScene();
 		
 		// Create and populate sceneMap
 		sceneMap = new HashMap<String,Scene>();
@@ -200,7 +203,9 @@ public class JavaFXTemplate extends Application {
 		// Set stage
 		primaryStage.setScene(sceneMap.get("intro"));
 		primaryStage.show();
+
 	}
+	
 	
 	public HashMap<String,Scene> newGame(Stage primaryStage, HashMap<String,Scene> sceneMap, 
 			IntroScene intro, GameScene game, RulesScene rules, Themes themes)
