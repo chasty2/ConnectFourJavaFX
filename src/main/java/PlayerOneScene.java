@@ -14,13 +14,15 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class PlayerOneScene {
-	BorderPane board = new BorderPane();
+	BorderPane oneRoot;
 	VBox earth;
 	HBox bottom;
 	Text winDialouge;
-	Button back;
+	Button exit;
 	Button newGame;
+	
 	public Scene createWinOneScene() {
+		oneRoot = new BorderPane();
 		BackgroundSize backgroundSize = new BackgroundSize(750,
 		        500,
 		        true,
@@ -32,24 +34,23 @@ public class PlayerOneScene {
 		        BackgroundRepeat.REPEAT,
 		        BackgroundPosition.CENTER,
 		        backgroundSize);
-		back = new Button("Exit");
+		exit = new Button("Exit");
 		newGame = new Button("New Game");
 		
 		winDialouge = new Text("Player One WON");
 		earth = new VBox(30, winDialouge);
-		bottom = new HBox(100, back, newGame);
-		board.setBackground(new Background(image));
+		bottom = new HBox(100, exit, newGame);
+		oneRoot.setBackground(new Background(image));
 		
 		winDialouge.setStyle("-fx-font: 85px Tahoma;" +
 				"-fx-fill: linear-gradient(from 0% 60% to 150% 200%, repeat, blue 10%, yellow 50%);" +
 				"-fx-stroke: black;");
 
-		
 		earth.setAlignment(Pos.CENTER);
 		bottom.setAlignment(Pos.CENTER);
-		board.setCenter(earth);
-		board.setBottom(bottom);
-		Scene winOneScene = new Scene(board, 650,400);
-		return winOneScene;
+		oneRoot.setCenter(earth);
+		oneRoot.setBottom(bottom);
+		Scene oneWin = new Scene(oneRoot, 650,400);
+		return oneWin;
 	}
 }

@@ -13,13 +13,15 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public class TieGameScene {
-	BorderPane board = new BorderPane();
+public class TieGame {
+	
+	BorderPane root;
 	VBox earth;
 	HBox bottom;
 	Text winDialouge;
-	Button back;
+	Button exit;
 	Button newGame;
+	
 	public Scene createTieScene() {
 		BackgroundSize backgroundSize = new BackgroundSize(750,
 		        500,
@@ -32,13 +34,14 @@ public class TieGameScene {
 		        BackgroundRepeat.REPEAT,
 		        BackgroundPosition.CENTER,
 		        backgroundSize);
-		back = new Button("Exit");
-		newGame = new Button("New Game");
 		
+		exit = new Button("Exit");
+		newGame = new Button("New Game");
+		root = new BorderPane();
 		winDialouge = new Text("TIE GAME");
 		earth = new VBox(30, winDialouge);
-		bottom = new HBox(100, back, newGame);
-		board.setBackground(new Background(image));
+		bottom = new HBox(100, exit, newGame);
+		root.setBackground(new Background(image));
 		
 		winDialouge.setStyle("-fx-font: 100px Tahoma;" +
 				"-fx-fill: linear-gradient(from 0% 60% to 150% 200%, repeat, red 10%, yellow 50%);" +
@@ -47,9 +50,9 @@ public class TieGameScene {
 		
 		earth.setAlignment(Pos.CENTER);
 		bottom.setAlignment(Pos.CENTER);
-		board.setCenter(earth);
-		board.setBottom(bottom);
-		Scene winOneScene = new Scene(board, 650,400);
-		return winOneScene;
+		root.setCenter(earth);
+		root.setBottom(bottom);
+		Scene tieScene = new Scene(root, 650,400);
+		return tieScene;
 	}
 }

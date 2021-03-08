@@ -133,7 +133,7 @@ public class XYButton extends Button
 	}
 	
 	// Front-end for Getters/Setters of XYButton
-	public void pushButton(Integer currentPlayer)
+	public void press(Integer currentPlayer)
 	{
 		// Disable button
 		this.valid = false;

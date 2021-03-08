@@ -88,7 +88,7 @@ public class GameLogic
 		}
 		else
 		{
-			moveList.add(button.getRow() + " ," + button.getColumn() +" is an "
+			moveList.add(button.getRow() + ", " + button.getColumn() +" is an "
 					+ "invalid move. Try again");
 			moveList.add("Player " + currentPlayer + " is up");
 		}

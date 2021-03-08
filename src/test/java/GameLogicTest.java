@@ -311,8 +311,7 @@ class GameLogicTest
 	}
 	
 	/*
-	 * Test end-game checks that return false due to
-	 * 'else if (button.getPlayer() != getCurrentPlayer())'
+	 * Test end-game checks when true
 	 */
 	@Test
 	void testCheckWinLeftNoWin()
@@ -332,14 +331,216 @@ class GameLogicTest
 	void testCheckWinUpNoWin()
 	{
 		assertFalse(game._checkWinUp(board, 1, game.getMove(board, 5, 3)), 
-				"game._checkWinLeft failed with no win");
+				"game._checkWinUp failed with no win");
 	}
 	
 	@Test
 	void testCheckWinDownNoWin()
 	{
 		assertFalse(game._checkWinDown(board, 1, game.getMove(board, 2, 3)), 
-				"game._checkWinRight failed wit no win");
+				"game._checkWinDown failed wit no win");
+	}
+	
+	@Test
+	void testCheckWinNWNoWin()
+	{
+		assertFalse(game._checkWinNW(board, 1, game.getMove(board, 5, 3)), 
+				"game._checkWinNW failed with no win");
+	}
+	
+	@Test
+	void testCheckWinNENoWin()
+	{
+		assertFalse(game._checkWinNE(board, 1, game.getMove(board, 5, 3)), 
+				"game._checkWinNE failed wit no win");
+	}
+	
+	@Test
+	void testCheckWinSWNoWin()
+	{
+		assertFalse(game._checkWinSW(board, 1, game.getMove(board, 5, 3)), 
+				"game._checkWinSW failed with no win");
+	}
+	
+	@Test
+	void testCheckWinSENoWin()
+	{
+		assertFalse(game._checkWinSE(board, 1, game.getMove(board, 2, 3)), 
+				"game._checkWinSE failed with no win");
+	}
+	
+	@Test
+	void testCheckWinWhenFalse()
+	{
+		assertFalse(game.checkWin(board, game.getMove(board, 2, 3)),
+				"checkwin failed");
+	}
+	
+	@Test
+	void checkTieHelperWhenFalse()
+	{
+		assertFalse(game._checkTie(board,1, game.getMove(board, 0, 0)),
+				"checkTie helper function failed");
+	}
+	
+	@Test
+	void checkTieWhenFalse()
+	{
+		assertFalse(game.checkTie(board), "checkTie failed");
+	}
+	
+	/*
+	 * Test end-game checks when true
+	 */
+	@Test
+	void testCheckWinLeftWin()
+	{
+		// Simulate all buttons being pressed
+		XYButton button = null;
+		for (Node node : board.getChildren())
+		{
+			button = (XYButton) node;
+			button.setPlayer(1);
+		}
+		assertTrue(game._checkWinLeft(board, 1, game.getMove(board, 5, 3)), 
+				"game._checkWinLeft failed when true");
+	}
+	
+	@Test
+	void testCheckWinRightWin()
+	{
+		// Simulate all buttons being pressed
+		XYButton button = null;
+		for (Node node : board.getChildren())
+		{
+			button = (XYButton) node;
+			button.setPlayer(1);
+		}
+		assertTrue(game._checkWinRight(board, 1, game.getMove(board, 5, 3)), 
+				"game._checkWinRight failed when true");
+	}
+	
+	@Test
+	void testCheckWinUpWin()
+	{
+		// Simulate all buttons being pressed
+		XYButton button = null;
+		for (Node node : board.getChildren())
+		{
+			button = (XYButton) node;
+			button.setPlayer(1);
+		}
+		assertTrue(game._checkWinUp(board, 1, game.getMove(board, 5, 3)), 
+				"game._checkWinUp failed when true");
+	}
+	
+	@Test
+	void testCheckWinDownWin()
+	{
+		// Simulate all buttons being pressed
+		XYButton button = null;
+		for (Node node : board.getChildren())
+		{
+			button = (XYButton) node;
+			button.setPlayer(1);
+		}
+		assertTrue(game._checkWinDown(board, 1, game.getMove(board, 2, 3)), 
+				"game._checkWinDown failed when true");
+	}
+	
+	@Test
+	void testCheckWinNWWin()
+	{
+		// Simulate all buttons being pressed
+		XYButton button = null;
+		for (Node node : board.getChildren())
+		{
+			button = (XYButton) node;
+			button.setPlayer(1);
+		}
+		assertTrue(game._checkWinNW(board, 1, game.getMove(board, 5, 3)), 
+				"game._checkWinNW failed when true");
+	}
+	
+	@Test
+	void testCheckWinNEWin()
+	{
+		// Simulate all buttons being pressed
+		XYButton button = null;
+		for (Node node : board.getChildren())
+		{
+			button = (XYButton) node;
+			button.setPlayer(1);
+		}
+		assertTrue(game._checkWinNE(board, 1, game.getMove(board, 5, 3)), 
+				"game._checkWinNE failed when true");
+	}
+	
+	@Test
+	void testCheckWinSWWin()
+	{
+		// Simulate all buttons being pressed
+		XYButton button = null;
+		for (Node node : board.getChildren())
+		{
+			button = (XYButton) node;
+			button.setPlayer(1);
+		}
+		assertTrue(game._checkWinSW(board, 1, game.getMove(board, 2, 3)), 
+				"game._checkWinSW failed when true");
+	}
+	
+	@Test
+	void testCheckWinSEWin()
+	{
+		// Simulate all buttons being pressed
+		XYButton button = null;
+		for (Node node : board.getChildren())
+		{
+			button = (XYButton) node;
+			button.setPlayer(1);
+		}
+		assertTrue(game._checkWinSE(board, 1, game.getMove(board, 2, 3)), 
+				"game._checkWinSE failed when true");
+	}
+	
+	@Test
+	void testCheckWinWhenTrue()
+	{
+		// Simulate all buttons being pressed
+		XYButton button = null;
+		for (Node node : board.getChildren())
+		{
+			button = (XYButton) node;
+			button.setPlayer(1);
+		}
+		assertTrue(game.checkWin(board, game.getMove(board, 2, 3)),
+				"checkwin failed when true");
+	}
+	
+	@Test
+	void checkTieHelperWhenTrue()
+	{
+		XYButton button = null;
+		for (Node node : board.getChildren())
+		{
+			button = (XYButton) node;
+			button.setPlayer(1);
+		}
+		assertTrue(game._checkTie(board,1, game.getMove(board, 0, 0)),
+				"checkTie helper function failed");
+	}
+	
+	@Test
+	void checkTieWhenTrue()
+	{
+		XYButton button = null;
+		for (Node node : board.getChildren())
+		{
+			button = (XYButton) node;
+			button.setPlayer(1);
+		}
+		assertTrue(game.checkTie(board), "checkTie failed");
 	}
 	
 	

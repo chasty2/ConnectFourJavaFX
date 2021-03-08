@@ -32,8 +32,16 @@ import javafx.util.Duration;
 
 public class GameScene 
 {	
+	
+	// Manage scene transitions
+	Scene thisScene;
+	HashMap<Integer, Scene> endScenes;
+	Stage primaryStage;
+	Scene tieScene;
+	Scene oneWinScene;
+	Scene twoWinScene;
 	// Manage game state
-	GameLogic game;
+	GameLogic game = new GameLogic();
 	GridPane gameBoard;
 	Button revBut;
 	Button themeBut;
@@ -63,29 +71,20 @@ public class GameScene
 			// Press if valid move
 			if (button.getValid() == true)
 			{
-				button.pushButton(game.getCurrentPlayer());
+				button.press(game.getCurrentPlayer());
 				if (game.checkWin(gameBoard, button) == true) 
 				{
 					game.disableButtons(gameBoard);
-					Text h3 = new Text("Player " + game.getCurrentPlayer() + " WON");
-					h3.setStyle("-fx-font: 60px Tahoma;" +
-				"-fx-fill: linear-gradient(from 0% 60% to 150% 200%, repeat, blue 10%, yellow 50%);" +
-				"-fx-stroke: black;");
-					pause.setOnFinished(e->{board.setCenter(h3);});
+					Integer winner = game.getCurrentPlayer();
+					pause.setOnFinished(e->{primaryStage.setScene(endScenes.get(winner));});
 					pause.play();
-					
 					System.out.println("Player " + game.getCurrentPlayer() + " WON");
 				}
 				else if (game.checkTie(gameBoard) == true)
 				{
 					game.disableButtons(gameBoard);
-					Text h3 = new Text("TIE GAME!!");
-					h3.setStyle("-fx-font: 60px Tahoma;" +
-				"-fx-fill: linear-gradient(from 0% 60% to 150% 200%, repeat, blue 10%, yellow 50%);" +
-				"-fx-stroke: black;");
-					pause.setOnFinished(e->{board.setCenter(h3);});
+					pause.setOnFinished(e->{primaryStage.setScene(tieScene);});
 					pause.play();
-					
 					System.out.println("Tie game");
 				}
 				game.changeTurn();
@@ -136,13 +135,24 @@ public class GameScene
 		}
 	};
 	
+	
+	
 	/*
-	 * Constructor, allows game to access gameBoard
+	 * Constructor, allows game to access gameBoard and scene transitions
 	 */
-	public GameScene()
-	{	game = new GameLogic();
+	public GameScene(Stage mainStage, TieGame tie, PlayerOneScene oneWin, PlayerTwoScene twoWin)
+	{
+		primaryStage = mainStage;
+		// Create end-game scenes
+		tieScene = tie.createTieScene();
+		oneWinScene = oneWin.createWinOneScene();
+		twoWinScene = twoWin.createWinTwoScene();
 		gameBoard = gameBoard();
 		list = new ListView<>();
+		// Make scenemap to set scene with proper winner
+		endScenes = new HashMap<Integer, Scene>();
+		endScenes.put(1,oneWinScene);
+		endScenes.put(2, twoWinScene);
 	}
 	
 	public GridPane gameBoard() {
@@ -219,7 +229,6 @@ public class GameScene
 		return menuList;
 	}
 	
-
 	public Scene createGameScene() {
 		
 		//center = gameBoard();
@@ -229,13 +238,14 @@ public class GameScene
 		board.setCenter(gameBoard);
 		board.setRight(eventLog);
 		board.setBottom(menu());
-		Scene gameScene = new Scene(board, 650,400, Color.WHITESMOKE);
+		Scene gameScene = new Scene(board, 650,400);
 		board.setStyle("-fx-padding: 10;" +
                 "-fx-border-style: solid inside;" +
                 "-fx-border-width: 5;" +
                 "-fx-border-radius: 2;" +
                 "-fx-border-color: red;" +
                 "-fx-background-color: beige");
+		thisScene = gameScene;
 		return gameScene;
 	}
 	
